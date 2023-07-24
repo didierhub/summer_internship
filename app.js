@@ -25,6 +25,15 @@ existed_account.addEventListener("click", function() {
 })
 
 
+
+let other_radio_input=document.getElementById("other_radio");
+let other_input_block=document.getElementById("specify");
+
+other_radio_input.addEventListener("click",function(){
+  other_input_block.style.display='block';
+}
+)
+
 // add_input_fild_forth_block
 var survey_options = document.getElementsByClassName('new_fild_added');
 var add_more_fields = document.getElementById('add_more_fields');
@@ -45,3 +54,12 @@ remove_fields.onclick = function(){
     survey_options.removeChild(input_tags[(input_tags.length) - 1]);
   }
 }
+
+
+// dashboard
+let menuicn = document.querySelector(".menuicn");
+let nav = document.querySelector(".navcontainer");
+
+menuicn.addEventListener("click", () => {
+	nav.classList.toggle("navclose");
+})

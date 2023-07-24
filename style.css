@@ -145,13 +145,14 @@ h1 {
 }
 
 #specify_input {
-    display: block;
+    
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-#specify_input input {
+#specify  {
+    display: none;
     width: 100%;
 
 }
