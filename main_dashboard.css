@@ -69,6 +69,7 @@ a{
 	top: 0;
 	align-items: center;
 	background-color: whitesmoke;
+	border-bottom: black solid 1px;
 	
 
 
@@ -177,6 +178,10 @@ border-right: 1px solid black;
 	flex-wrap: wrap;
 	border-radius: 10px;
 }
+.midle_section_box:hover{
+	transform: translateY(-10px);
+}
+
 .status_name{
 	font-size: 20px;
 	width: 100%;
