@@ -199,4 +199,61 @@ border-right: 1px solid black;
 
 }
 
+/* user_dashboard_css */
+#midle_section_contenair_user{
+
+	display: flex;
+	max-width:80%;
+	height:80vh;
+	position: relative;
+	top: 0%;
+	left: 20%;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+
+}
+#midle_section_contenair_user h2{
+	padding-right: 25%;
+	width: 80%;
+	text-align: center;
+}
+#Description{
+	width: 80%;
+	height:60% ;
+	background: whitesmoke;
+	display: flex;
+	flex-wrap: wrap;
+	align-content: space-between;
+}
+.panel{
+	height: 30%;
+	width: 100%;
+	background:white;
+	 overflow: hidden;
+	 display: none;
+}
+.panel p{
+	color:black;
+	font-size: 20px;
+}
+.accordion {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	padding:15px 5px;
+	width: 100%;
+	text-align: left;
+	border: none;
+	outline: none;
+	transition: 0.4s;
+	font-size: 25px;
+  }
+  active, .accordion:hover {
+	background-color: #ccc;
+  }
+
+
+
+
 
