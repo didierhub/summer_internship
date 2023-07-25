@@ -43,7 +43,7 @@
         <div id="dash_board_menu">
 
             <h2><ion-icon name="grid-outline"></ion-icon>dashboard</h2>
-            <div><a href=""><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
+            <div><a href="Admin_dashboard.html"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
             <div><a href=""><ion-icon name="create-outline"></ion-icon> <span>Ethics form <span></span></a></div>
             <div><a href=""> <ion-icon name="receipt-outline"></ion-icon> <span>Project form </span></a></div>
             <div><a href=""> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
@@ -54,12 +54,30 @@
 
 
             <div id="midle_section_contenair_box">
-                <div class="midle_section_box"> <span class="status_name">new request</span>   <span class="count"> 0</span></div>
-                <div class="midle_section_box"> <span class="status_name">awating request</span>  <span class="count"> 0</span></div>
-                <div class="midle_section_box"><span class="status_name"> approved</span>  <span class="count"> 0</span></div>
+                <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
+                        0</span></div>
+                <div class="midle_section_box"> <span class="status_name">awating request<ion-icon name="aperture-outline"></ion-icon></span> <span class="count">
+                        0</span></div>
+                <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"> 0</span>
+                </div>
             </div>
 
             <div id="status_table">
+                <div id="status_table_hearder">
+                    <h2 >recent forms</h2>
+                    <div id="view_all">
+                        <button type="button">view all</button>
+
+                    </div>
+                </div>
+
+                <div id="form_row_column">
+                     <div id="form_row_header">
+                     </div>
+                    <div id="project_form_row"></div>
+                    <div id="ethics_form_row"></div>
+
+                </div>
 
             </div>
 

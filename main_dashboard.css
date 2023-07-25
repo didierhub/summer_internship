@@ -180,8 +180,15 @@ border-right: 1px solid black;
 .status_name{
 	font-size: 20px;
 	width: 100%;
-	text-align: center;
 	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.status_name ion-icon{
+	width: 24px;
+	height: 24px;
+	margin-left: 2px;
 }
 .count{
 	width: 100%;
@@ -198,6 +205,26 @@ border-right: 1px solid black;
 	left: 50%;
 
 }
+
+#status_table_hearder{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	border-bottom: solid black;
+	padding: 10px 5px;
+}
+#status_table_hearder button{
+	outline: none;
+	border: none;
+	
+	padding: 5px 10px;
+	border-radius: 5px;
+	background: red;
+	color: white;
+	font-size: 15px;
+
+}
+
 
 /* user_dashboard_css */
 #midle_section_contenair_user{
