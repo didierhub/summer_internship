@@ -1,0 +1,41 @@
+@import url("main_dashboard.css");
+
+#header_contenair{
+    position: fixed;
+    height: 10%;
+    z-index: 1;
+}
+#dash_board_menu{
+    position: fixed;
+    top: 10%;
+    z-index: 1;
+}
+.ethic_form_box{
+    width: 80%;
+}
+
+#midle_section_contenair_user{
+    overflow-y:scroll;
+    position: absolute;
+    box-sizing: border-box;
+    margin-top: 5%;
+    min-height: 90vh;
+}
+#midle_section_contenair_user h2{
+    margin-top: 5%;
+    padding-bottom: 5%;
+    width: 80%;
+    text-align: center;
+}
+#midle_section_contenair_user textarea{
+    width: 99%;
+    border: none;
+    outline: none;
+    border: 1px solid red;
+}
+/* #last_textarea{
+    margin-bottom: 2%;
+
+} */
+
+
