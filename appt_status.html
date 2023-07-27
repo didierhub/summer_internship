@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="main_dashboard.css">
+    <link rel="stylesheet" href="appt_status.css">
 
     <title>Document</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -54,22 +54,62 @@
         <div id="midle_section_contenair">
 
 
-            <div id="midle_section_contenair_box">
-                <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
-                        0</span></div>
-                <div class="midle_section_box"> <span class="status_name">awating request<ion-icon name="aperture-outline"></ion-icon></span> <span class="count">
-                        0</span></div>
-                <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"> 0</span>
-                </div>
-            </div>
-
             <div id="status_table">
                 <div id="status_table_hearder">
-                    <h2 >recent forms</h2>
-                    <div id="view_all">
-                        <button type="button">view all</button>
+                  
+                    <div class="table_col">
+                     
+                        <h3>App No</h3>
 
                     </div>
+                    <div class="table_col">
+                      <h3>Application type</h3>
+                    
+                    </div>
+                    <div class="table_col">
+                     <h3>Status</h3>
+
+                    </div>
+                    <div class="table_col">
+                         <h3>Comment</h3> 
+                    </div>
+                    <div class="table_col">
+                        <button type="button">edit/delete</button>
+
+                    </div>
+                    
+
+
+                </div>
+                <div id="status_main_section">
+                    <div  class="sub_table_col  first-of-type">
+                      <ol>
+                        <li>20230701</li>
+                      </ol>
+   
+                       </div> <div class="sub_table_col">
+                       <ul>
+                        <li>Ethics App</li>
+                        <li>project App</li>
+                       </ul>
+   
+                       </div> <div class="sub_table_col">
+                       <ul>
+                        <li>new</li>
+                        <li>revesion</li>
+                        <li> pending</li>
+                        <li>approval</li>
+                        <li>extention</li>
+                        <li>modification</li>
+                       </ul>
+                       </div> <div class="sub_table_col">
+                        <h3>Status</h3>
+   
+                       </div> <div class="sub_table_col">
+                        <h3>Status</h3>
+   
+                       </div>
+
                 </div>
 
                 <div id="form_row_column">

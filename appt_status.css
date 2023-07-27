@@ -1,0 +1,26 @@
+@import url('main_dashboard.css');
+#status_main_section{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.table_col{
+    width: 18%;
+    display: flex;
+    justify-content: center;
+    
+}
+.sub_table_col{
+    width: 15%;
+    display: flex;
+    justify-content: center;
+    border-right: 1px  solid black;
+   
+    
+}
+ .first-of-type{
+    border-left: 1px  solid black;
+   
+
+   
+}
