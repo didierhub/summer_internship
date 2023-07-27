@@ -27,15 +27,12 @@
     width: 80%;
     text-align: center;
 }
-#midle_section_contenair_user textarea{
+.ethic_form_box textarea{
     width: 99%;
     border: none;
     outline: none;
     border: 1px solid red;
 }
-/* #last_textarea{
-    margin-bottom: 2%;
 
-} */
 
 
