@@ -50,9 +50,29 @@
     display: flex;
     padding-right: 2%;
 }
-.yes_or_no_radio span input[type='radio']{
-    padding-left: 1%;
-   background-color: red;
+.yes_or_no_radio span label{
+    padding-right: 4px;
+   
+  
+}
+
+.signature{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  
+}
+.signature_content{
+    width: 30%;
+    padding-bottom: 4%;
+}
+.signature_content input{
+    border: none;
+    outline: none;
+    border: solid 1px red;
+    width: 100%;
+    font-size: 20px;
 }
 
 
