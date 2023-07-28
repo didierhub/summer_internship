@@ -20,6 +20,7 @@
     box-sizing: border-box;
     margin-top: 5%;
     min-height: 90vh;
+    text-align: center;
 }
 #midle_section_contenair_user h2{
     margin-top: 5%;
@@ -27,12 +28,34 @@
     width: 80%;
     text-align: center;
 }
+.ethic_form_box h3{
+    margin-bottom: 2%;
+    width: 100%;
+    text-align: left;
+}
+
 .ethic_form_box textarea{
-    width: 99%;
+    width: 97%;
     border: none;
     outline: none;
     border: 1px solid red;
+    margin-bottom: 2%;
 }
+.yes_or_no_radio{
+    margin-left: 2%;
+    display: flex;
+
+}
+.yes_or_no_radio span{
+    display: flex;
+    padding-right: 2%;
+}
+.yes_or_no_radio span input[type='radio']{
+    padding-left: 1%;
+   background-color: red;
+}
+
+
 
 
 
