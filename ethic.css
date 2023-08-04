@@ -61,6 +61,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    align-items: center;
   
 }
 .signature_content{
@@ -73,6 +74,18 @@
     border: solid 1px red;
     width: 100%;
     font-size: 20px;
+}
+.clear-btn,.save-btn{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+   outline: none;
+   color: white;
+   background-color: red;
+
+} 
+.save-btn{
+    background-color: green;
 }
 
 

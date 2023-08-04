@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="ethic.css">
+   
 
     <title>Document</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -54,8 +55,8 @@
 
             <h2><ion-icon name="grid-outline"></ion-icon>dashboard</h2>
             <div><a href="user_dashboard.html"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
-            <div><a href="ethic_form.html"><ion-icon name="create-outline"></ion-icon> <span>Ethics form <span></span></a></div>
-            <div><a href="project_form.html"> <ion-icon name="receipt-outline"></ion-icon> <span>Project form
+            <div><a href="ethic_form.html"><ion-icon name="create-outline"></ion-icon> <span>Project form <span></span></a></div>
+            <div><a href="project_form.html"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
                     </span></a></div>
             <div><a href="appt_status.html"> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
         </div>
@@ -181,7 +182,13 @@
                 <div class="signature">
                     <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
                     <div class="signature_content"> <input type="text"></div>
-                    <div class="signature_content"><h4>signature:</h4></div>
+                    <div class="signature_content"><h4>signature:</h4>
+                        <div class="signature-pad">
+                            <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
+                            <button class="clear-btn">Clear Signature</button>
+                            <button class="save-btn">Save Signature</button>
+                          </div>
+                    </div>
                    
                         
                        
@@ -189,7 +196,14 @@
                 <div class="signature">
                     <div class="signature_content"> <h4>Supervisor’s / Advisor’s name and surname</h4></div>
                     <div class="signature_content"><input type="text"></div>
-                    <div class="signature_content"><h4>signature:</h4></div>
+                    <div class="signature_content"><h4>signature:</h4>
+                        <div class="signature-pad">
+                            <canvas id="signatureCanvas2" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
+                            <button class="clear-btn">Clear Signature</button>
+                            <button class="save-btn">Save Signature</button>
+                          </div>
+                    
+                    </div>
                    
                         
                    
@@ -204,7 +218,59 @@
 
     </div>
 
-    <script src="form.js"></script>
+    <script >
+        class SignaturePad {
+  constructor(signaturePadElement, canvasId) {
+    this.canvas = signaturePadElement.querySelector('.signature-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.isDrawing = false;
+    this.lastX = 0;
+    this.lastY = 0;
+
+    this.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
+    this.canvas.addEventListener('mousemove', this.draw.bind(this));
+    this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
+    this.canvas.addEventListener('mouseout', this.stopDrawing.bind(this));
+
+    signaturePadElement.querySelector('.clear-btn').addEventListener('click', this.clearSignature.bind(this));
+    signaturePadElement.querySelector('.save-btn').addEventListener('click', this.saveSignature.bind(this));
+
+    this.canvasId = canvasId;
+  }
+
+  startDrawing(e) {
+    this.isDrawing = true;
+    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+  }
+
+  draw(e) {
+    if (!this.isDrawing) return;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.lastX, this.lastY);
+    this.ctx.lineTo(e.offsetX, e.offsetY);
+    this.ctx.stroke();
+    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+  }
+
+  stopDrawing() {
+    this.isDrawing = false;
+  }
+
+  clearSignature() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  saveSignature() {
+    const signatureImageURL = this.canvas.toDataURL();
+    console.log(`Signature ${this.canvasId}:`, signatureImageURL);
+  }
+}
+
+// Initialize SignaturePad for each signature pad element
+const signaturePads = document.querySelectorAll('.signature-pad');
+signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, index + 1));
+
+    </script>
 </body>
 
 </html>

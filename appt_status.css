@@ -24,3 +24,28 @@
 
    
 }
+#edit_box{
+   
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+
+#delete{
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: red;
+    padding: 5px 10px;
+}
+
+#edit{
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color:orangered;
+    padding: 5px 10px;
+}
