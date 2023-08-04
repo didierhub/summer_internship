@@ -1,19 +1,20 @@
 
-var acc = document.getElementsByClassName("accordion");
-var i;
+document.addEventListener("DOMContentLoaded", function () {
+  const addFieldButton = document.querySelector("#add_more_fields");
+  const removeFieldButton = document.querySelector("#remove_fields");
+  const inputBlock = document.querySelector(".input_block");
 
-for (i = 0; i < acc.length; i++) {
-  acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active");
+  addFieldButton.addEventListener("click", function () {
+    const newInput = document.createElement("input");
+    newInput.type = "text";
+    newInput.placeholder = "New Field";
+    inputBlock.appendChild(newInput);
+  });
 
-    /* Toggle between hiding and showing the active panel */
-    var panel = this.nextElementSibling;
-    if (panel.style.display === "block") {
-      panel.style.display = "none";
-    } else {
-      panel.style.display = "block";
+  removeFieldButton.addEventListener("click", function () {
+    const inputFields = inputBlock.querySelectorAll("input");
+    if (inputFields.length > 0) {
+      inputBlock.removeChild(inputFields[inputFields.length - 1]);
     }
   });
-}
+});
