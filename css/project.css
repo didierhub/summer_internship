@@ -1,5 +1,5 @@
- @import url('/css/main_dashboard.css');
- @import url('/css/main_dashboard.css');
+ @import "/css/main_dashboard.css";
+ @import "/css/main_dashboard.css";
 * {
 
     margin: 0;
