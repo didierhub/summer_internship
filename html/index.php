@@ -75,6 +75,7 @@ $conn->close();
             Already have an account?  <a href="index.php"><span>Login here</span></a>
           </p>
 </div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const passwordInput = document.getElementById("password");
