@@ -43,7 +43,7 @@ $conn->close();
 <div id="signup-box">
 
         <div id="logo">
-             <img src="/image/ufulogoen4.png" alt="">
+             <img src="../image/ufulogoen4.png" alt="">
         </div>
 
         <h1>Sign Up</h1>
@@ -72,7 +72,7 @@ $conn->close();
         }
         ?>
         <p class="para-2" id="have_account">
-            Already have an account?  <a href="index.html"><span>Login here</span></a>
+            Already have an account?  <a href="index.php"><span>Login here</span></a>
           </p>
 </div>
 <script>

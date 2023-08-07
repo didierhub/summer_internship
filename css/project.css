@@ -1,5 +1,5 @@
- @import "/css/main_dashboard.css";
- @import "/css/ethic.css";
+ @import "../css/main_dashboard.css";
+ @import "../css/ethic.css";
 * {
 
     margin: 0;

@@ -31,7 +31,7 @@
 
         <div id="header_contenair">
             <div id="logo">
-                <img src="/image/ufulogoen4.png" alt="">
+                <img src="../image/ufulogoen4.png" alt="">
 
             </div>
             <div id="search">
@@ -54,12 +54,12 @@
         <div id="dash_board_menu">
 
             <h2><ion-icon name="grid-outline"></ion-icon>dashboard</h2>
-            <div><a href="user_dashboard.html"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
-            <div><a href="ethic_form.html"><ion-icon name="create-outline"></ion-icon> <span>Project form
+            <div><a href="../html/user_dashboard.php"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div
+            <div><a href="ethic_form.php"><ion-icon name="create-outline"></ion-icon> <span>Project form
                         <span></span></a></div>
-            <div><a href="project_form.html"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
+            <div><a href="project_form.php"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
                     </span></a></div>
-            <div><a href="appt_status.html"> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
+            <div><a href="appt_status.php"> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
         </div>
 
 
