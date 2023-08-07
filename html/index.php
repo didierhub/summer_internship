@@ -30,7 +30,7 @@ $conn->close();
 <html lang="en">
   <head>
     <title>Login</title>
-    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="clogin.css" 
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
@@ -57,7 +57,7 @@ $conn->close();
                     <input type="password" placeholder="" />
                     <label>Confirm Password</label>
                     <input type="password" placeholder="" />
-                    <input type="button" value="sin up " />
+                    <input type="submit" value="sin up " />
                     <closeform></closeform>
     </form>
 
