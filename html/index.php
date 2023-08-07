@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
 
     if ($conn->query($sql) === TRUE) {
-      header("Location:html/user_dashboard.php");
+      header("Location:user_dashboard.php");
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
@@ -30,7 +30,8 @@ $conn->close();
 <html lang="en">
   <head>
     <title>Login</title>
-    <link rel="stylesheet" href="clogin.css" 
+    <link rel="stylesheet" href="../css/login.css" >
+
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
@@ -74,8 +75,28 @@ $conn->close();
             Already have an account?  <a href="index.html"><span>Login here</span></a>
           </p>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirmPassword");
+    const signupForm = document.getElementById("signupForm");
 
-  
+    confirmPasswordInput.addEventListener("input", function() {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            confirmPasswordInput.setCustomValidity("Passwords do not match.");
+        } else {
+            confirmPasswordInput.setCustomValidity("");
+        }
+    });
+
+    signupForm.addEventListener("submit", function(event) {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            event.preventDefault();
+            confirmPasswordInput.reportValidity();
+        }
+    });
+});
+</script>
   </body>
 </html>
 

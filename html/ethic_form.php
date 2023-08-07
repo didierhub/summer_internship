@@ -15,7 +15,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/ethic.css">
+    <link rel="stylesheet" href="../css/ethic.css">
    
 
     <title>Document</title>
@@ -54,7 +54,7 @@
         <div id="dash_board_menu">
 
             <h2><ion-icon name="grid-outline"></ion-icon>dashboard</h2>
-            <div><a href="user_dashboard.html"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
+            <div><a href="../htmluser_dashboard.html"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
             <div><a href="ethic_form.html"><ion-icon name="create-outline"></ion-icon> <span>Project form <span></span></a></div>
             <div><a href="project_form.html"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
                     </span></a></div>

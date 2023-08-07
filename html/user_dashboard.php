@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/css/main_dashboard.css">
+    <link rel="stylesheet" href="../css/main_dashboard.css">
 
     <title>Document</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -20,7 +20,7 @@
 
         <div id="header_contenair">
             <div id="logo">
-                <img src="/image/ufulogoen4.png" alt="">
+                <img src="../image/ufulogoen4.png" alt="">
 
             </div>
             <div id="search">
