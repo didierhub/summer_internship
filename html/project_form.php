@@ -54,7 +54,7 @@
         <div id="dash_board_menu">
 
             <h2><ion-icon name="grid-outline"></ion-icon>dashboard</h2>
-            <div><a href="../html/user_dashboard.php"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div
+            <div><a href="user_dashboard.php"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
             <div><a href="ethic_form.php"><ion-icon name="create-outline"></ion-icon> <span>Project form
                         <span></span></a></div>
             <div><a href="project_form.php"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form

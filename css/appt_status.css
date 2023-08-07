@@ -1,4 +1,4 @@
-@import "/css/main_dashboard.css";
+@import "../css/main_dashboard.css";
 #status_main_section{
     width: 100%;
     display: flex;

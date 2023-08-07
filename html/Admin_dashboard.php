@@ -21,7 +21,7 @@
 
         <div id="header_contenair">
             <div id="logo">
-                <img src="../image/ufulogoen4.png" alt=""
+                <img src="../image/ufulogoen4.png" alt="">
                 
 
             </div>
@@ -58,7 +58,7 @@
             <div id="midle_section_contenair_box">
                 <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
                         0</span></div>
-                <div class="midle_section_box"> <span class="status_name">awating request<ion-icon name="aperture-outline"></ion-icon></span> <span class="count">
+                        <div class="midle_section_box"> <span class="status_name"> Awaiting request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
                         0</span></div>
                 <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"> 0</span>
                 </div>
