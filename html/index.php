@@ -1,55 +1,29 @@
-
 <?php
-// Check if the form is submitted
+require_once 'db_connection.php';
+
+// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve the submitted form data
-    $firstName = $_POST["first_name"];
-    $lastName = $_POST["last_name"];
+    $first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $confirmPassword = $_POST["confirm_password"];
+    $confirm_password = $_POST["confirm_password"];
 
-    // Validate the form data (you can add more validation if needed)
+    // Add more validation and security measures here
+    
+    // Insert user data into the database
+    $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
 
-    // Check if passwords match
-    if ($password !== $confirmPassword) {
-        $error_message = "Passwords do not match";
+    if ($conn->query($sql) === TRUE) {
+      header("Location:html/user_dashboard.php");
     } else {
-        // Hash the password
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Connect to the MySQL database
-        $conn = new mysqli("localhost", "username", "password", "my_database");
-
-        // Check the database connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        // Prepare the SQL query to insert user information
-        $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES (?, ?, ?, ?)";
-
-        // Prepare the statement
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssss", $firstName, $lastName, $email, $hashedPassword);
-        
-        // Execute the statement
-        if ($stmt->execute()) {
-            // Registration successful, redirect to login page
-            header("Location: login.php");
-            exit();
-        } else {
-            // Registration failed
-            $error_message = "Registration failed. Please try again later.";
-        }
-
-        // Close the statement and connection
-        $stmt->close();
-        $conn->close();
+        echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
-?>
 
+// Close the database connection
+$conn->close();
+?>
 
 
 <!DOCTYPE html>
@@ -72,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <h1>Sign Up</h1>
-        <form>
+        <form action="signup_process.php" method="post" >
                     <label>First Name</label>
                     <input type="text" placeholder="" />
                     <label>Last Name</label>
