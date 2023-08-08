@@ -2,29 +2,33 @@
 require_once 'db_connection.php';
 
 // Handle form submission
+// If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST["confirm_password"];
+  $first_name = $_POST["first_name"];
+  $last_name = $_POST["last_name"];
+  $email = $_POST["email"];
+  $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hash the password
 
-    // Add more validation and security measures here
-    
-    // Insert user data into the database
-    $sql = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
+  // Check if the email already exists
+  $email_check_query = "SELECT * FROM SKI_USER WHERE email = '$email'";
+  $result = $conn->query($email_check_query);
+  
+  if ($result->num_rows > 0) {
+      echo "Email already exists";
+  } else {
+      // Insert user data into the database
+      $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
 
-    if ($conn->query($sql) === TRUE) {
-      header("Location:user_dashboard.php");
-    } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
-    }
+      if ($conn->query($insert_query) === TRUE) {
+          // Redirect the user to the video page
+          header("Location:user_dashboard.php");
+          exit(); // Make sure to exit after redirection
+      } else {
+          echo "Error: " . $insert_query . "<br>" . $conn->error;
+      }
+  }
 }
-
-// Close the database connection
-$conn->close();
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +57,7 @@ $conn->close();
                     <label>Last Name</label>
                     <input  name ="last_name"  type="text" placeholder="" />
                     <label>Email</label>
-                    <input  name="type="email="email" placeholder="" />
+                    <input  type="email" name="email" placeholder="" />
                     <label>Password</label>
                     <input  name="password"  type="password" placeholder="" />
                     <label>Confirm Password</label>
