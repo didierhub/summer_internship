@@ -133,7 +133,7 @@
 
     </div>
 
-    <script src="/js/form.js"></script>
+    <script src="../js/form.js"></script>
 </body>
 
 </html>
