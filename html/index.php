@@ -47,17 +47,18 @@ $conn->close();
         </div>
 
         <h1>Sign Up</h1>
-        <form action="signup_process.php" method="post" >
+        <form action="index.php" method="post" >
                     <label>First Name</label>
-                    <input type="text" placeholder="" />
+                    <input  name="first_name" type="text" placeholder="" />
                     <label>Last Name</label>
-                    <input type="text" placeholder="" />
+                    <input  name ="last_name"  type="text" placeholder="" />
                     <label>Email</label>
-                    <input type="email" placeholder="" />
+                    <input  name="type="email="email" placeholder="" />
                     <label>Password</label>
-                    <input type="password" placeholder="" />
+                    <input  name="password"  type="password" placeholder="" />
                     <label>Confirm Password</label>
-                    <input type="password" placeholder="" />
+                    <input name="confirm_password" type="password"  placeholder="" />
+                    <span class="message" id="message"></span>
                     <input type="submit" value="sin up " />
                     <closeform></closeform>
     </form>
@@ -77,27 +78,35 @@ $conn->close();
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const passwordInput = document.getElementById("password");
-    const confirmPasswordInput = document.getElementById("confirmPassword");
-    const signupForm = document.getElementById("signupForm");
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const messageElement = document.getElementById('message');
+    const form = document.getElementById('signup-form');
 
-    confirmPasswordInput.addEventListener("input", function() {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            confirmPasswordInput.setCustomValidity("Passwords do not match.");
-        } else {
-            confirmPasswordInput.setCustomValidity("");
-        }
+    confirmPasswordInput.addEventListener('input', () => {
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      if (password === confirmPassword) {
+        messageElement.textContent = 'Passwords match';
+        messageElement.style.color = 'green';
+        form.querySelector('button').disabled = false;
+      } else {
+        messageElement.textContent = 'Passwords do not match';
+        messageElement.style.color = 'red';
+        form.querySelector('button').disabled = true;
+      }
     });
 
-    signupForm.addEventListener("submit", function(event) {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-            event.preventDefault();
-            confirmPasswordInput.reportValidity();
-        }
+    form.addEventListener('submit', (e) => {
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        e.preventDefault();
+        alert('Passwords do not match. Please correct.');
+      }
     });
-});
-</script>
+  </script>
+
+
   </body>
 </html>
 

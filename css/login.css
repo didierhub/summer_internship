@@ -111,4 +111,9 @@ body {
  }
 
  
- 
+ #message{
+width: 80%;
+display: flex;
+justify-content: center;
+color: #e40707;
+ }
