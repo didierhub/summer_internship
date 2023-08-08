@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input  name="password"  type="password" placeholder="" />
                     <label>Confirm Password</label>
                     <input name="confirm_password" type="password"  placeholder="" />
-                    <span class="message" id="message"></span>
+                    <span id="password_error"></span>
                     <input type="submit" value="sin up " />
                     <closeform></closeform>
     </form>
@@ -77,40 +77,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
         <p class="para-2" id="have_account">
-            Already have an account?  <a href="index.php"><span>Login here</span></a>
+            Already have an account?  <a href="login.php"><span>Login here</span></a>
           </p>
 </div>
 
-<script>
-    const passwordInput = document.getElementById('password');
-    const confirmPasswordInput = document.getElementById('confirm-password');
-    const messageElement = document.getElementById('message');
-    const form = document.getElementById('signup-form');
-
-    confirmPasswordInput.addEventListener('input', () => {
-      const password = passwordInput.value;
-      const confirmPassword = confirmPasswordInput.value;
-
-      if (password === confirmPassword) {
-        messageElement.textContent = 'Passwords match';
-        messageElement.style.color = 'green';
-        form.querySelector('button').disabled = false;
-      } else {
-        messageElement.textContent = 'Passwords do not match';
-        messageElement.style.color = 'red';
-        form.querySelector('button').disabled = true;
-      }
-    });
-
-    form.addEventListener('submit', (e) => {
-      if (passwordInput.value !== confirmPasswordInput.value) {
-        e.preventDefault();
-        alert('Passwords do not match. Please correct.');
-      }
-    });
-  </script>
 
 
+<script >
+      function validateForm() {
+    var password = document.getElementById("password").value;
+    var confirmPassword = document.getElementById("password_confirm").value;
+
+    if (password !== confirmPassword) {
+        document.getElementById("main_contenair").style.height='510px';
+        document.getElementById("password_error").textContent = "Passwords do not match.";
+        return false;
+        
+    } else {
+        document.getElementById("password_error").textContent = "";
+        return true;
+    }
+}
+
+
+    </script>
   </body>
 </html>
 
