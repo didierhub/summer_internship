@@ -23,14 +23,18 @@
                 <img src="../image/ufulogoen4.png" alt="">
 
             </div>
-            <div id="search">
+            <!-- <div id="search">
                 <input type="text" placeholder="search">
                 <span id="search_icon"><ion-icon name="search-outline"></ion-icon></span>
-            </div>
+            </div> -->
 
             <div id="log_out_notification_contenair">
+               <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
+                
+
                 <span id="profile"> </span>
+                <span id="care_down"> <ion-icon name="caret-down-outline"></ion-icon></span>
 
 
             </div>

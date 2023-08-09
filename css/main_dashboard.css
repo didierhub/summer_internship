@@ -77,8 +77,9 @@ a{
 
 }
 #log_out_notification_contenair{
+	width: auto;
 	display: flex ;
-	justify-content: space-around;
+	justify-content: space-between;
 	align-items: center;
 	padding-right:2% ;
 }
