@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    background-image: url("../image/login_backgroung.jpg");
 }
 .table_col{
     width: 18%;

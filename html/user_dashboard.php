@@ -33,7 +33,7 @@
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
                 
 
-                <span id="profile"> </span>
+                <span id="profile"><img src="../image/profile.jpg" alt=""> </span>
 
                 <div class="dropdown-container">
                     <span id="care_down" >
@@ -41,8 +41,8 @@
                       <ion-icon name="caret-up-outline" id="care_up_icon"></ion-icon>
 
                       <ul id="dropdown-content" >
-                        <li>Dashboard</li>
-                        <li id="log_out" >Log out <span><ion-icon name="exit-outline"></ion-icon></span></li>
+                        <li>Edit profile</li>
+                        <li id="log_out" ><a href="logout.php">Log out <span><ion-icon name="exit-outline"></ion-icon></span></a></li>
                       </ul>
                     </span>
                   </div>

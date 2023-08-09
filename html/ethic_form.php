@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+
 </body>
 </html><!DOCTYPE html>
 <html lang="en">
@@ -40,12 +32,26 @@
             </div>
 
             <div id="log_out_notification_contenair">
+               <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
-                <span id="profile"> </span>
+                
+
+                <span id="profile"> <img src="../image/profile.jpg" alt=""></span>
+
+                <div class="dropdown-container">
+                    <span id="care_down" >
+                      <ion-icon name="caret-down-outline" id="care_down_icon" ></ion-icon>
+                      <ion-icon name="caret-up-outline" id="care_up_icon"></ion-icon>
+
+                      <ul id="dropdown-content" >
+                        <li>Edit profile</li>
+                        <li id="log_out" ><a href="logout.php">Log Out<span><ion-icon name="exit-outline"></ion-icon></span></a></li>
+                      </ul>
+                    </span>
+                  </div>
 
 
             </div>
-
 
 
         </div>
@@ -271,6 +277,9 @@ const signaturePads = document.querySelectorAll('.signature-pad');
 signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, index + 1));
 
     </script>
+     <Script src="../js/app.js">
+
+ </Script>
 </body>
 
 </html>

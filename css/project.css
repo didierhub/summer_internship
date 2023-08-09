@@ -48,7 +48,8 @@ textarea {
    position: relative;
    left: 40%;
     /* background-color: rgb(241, 241, 248); */
-    background: whitesmoke;
+   
+    background-image: url("../image/login_backgroung.jpg");
 }
 
 #derscription {
