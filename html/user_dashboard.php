@@ -35,12 +35,17 @@
 
                 <span id="profile"> </span>
 
-                <span id="care_down"> <ion-icon name="caret-down-outline"></ion-icon>
-                  <ul>
-                    <li> Dashboard</li>
-                    <li> log out </li>
-                  </ul>
-              </span>
+                <div class="dropdown-container">
+                    <span id="care_down" >
+                      <ion-icon name="caret-down-outline" id="care_down_icon" ></ion-icon>
+                      <ion-icon name="caret-up-outline" id="care_up_icon"></ion-icon>
+
+                      <ul id="dropdown-content" >
+                        <li>Dashboard</li>
+                        <li id="log_out" >Log out <span><ion-icon name="exit-outline"></ion-icon></span></li>
+                      </ul>
+                    </span>
+                  </div>
 
 
             </div>
@@ -143,7 +148,11 @@
 
     </div>
 
-    <script src="../js/form.js"></script>
+   
+    <Script src="../js/app.js">
+
+    </Script>
+   
 </body>
 
 </html>

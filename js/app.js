@@ -1,70 +1,48 @@
-//log in page js
 
-let creat_account= document.getElementById('not_have_account');
-let existed_account=document.getElementById('have_account');
+ //FOR CORDIANT
+var acc = document.getElementsByClassName("accordion");
+var i;
 
-let log_in=document.getElementById('login-box');
-let sign_up=document.getElementById('signup-box');
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
 
-
-creat_account.addEventListener("click", function(){
-
-  
-    sign_up.style.display='block';
-    log_in.style.display='none';
-
-})
-
-
-existed_account.addEventListener("click", function() {
-    
-   
-   
-      sign_up.style.display='none';
-      log_in.style.display='block';
-})
-
-
-
-let other_radio_input=document.getElementById("other_radio");
-let other_input_block=document.getElementById("specify");
-
-other_radio_input.addEventListener("click",function(){
-  other_input_block.style.display='block';
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
 }
+
+//FOR THE DROP DOWN UP ICTION
+
+const drop_down_icon=document.getElementById('care_down_icon');
+const drop_content=document.getElementById('dropdown-content');
+const drop_up_icon=document.getElementById('care_up_icon');
+
+
+drop_down_icon.addEventListener(
+    'click',function () {
+        drop_content.style.display='block';
+        care_up_icon.style.display='block'
+        drop_down_icon.style.display='none'
+
+        
+    }
 )
 
-// add_input_fild_forth_block
-var survey_options = document.getElementsByClassName('new_fild_added');
-var add_more_fields = document.getElementById('add_more_fields');
-var remove_fields = document.getElementById('remove_fields');
 
-add_more_fields.addEventListener("click",function(){
-  var newField = document.createElement('input');
-  newField.setAttribute('type','text');
-  newField.setAttribute('name','survey_options[]');
-  newField.setAttribute('class','survey_options');
-  newField.setAttribute('placeholder','Another Field');
-  survey_options.appendChild(newField);
-} )
+care_up_icon.addEventListener(
+    'click',function () {
+        drop_content.style.display='none';
+        care_up_icon.style.display='none'
+        drop_down_icon.style.display='block'
 
-remove_fields.onclick = function(){
-  var input_tags = survey_options.getElementsByTagName('input');
-  if(input_tags.length > 2) {
-    survey_options.removeChild(input_tags[(input_tags.length) - 1]);
-  }
-}
-
-
-// dashboard
-let menuicn = document.querySelector(".menuicn");
-let nav = document.querySelector(".navcontainer");
-
-menuicn.addEventListener("click", () => {
-	nav.classList.toggle("navclose");
-})
-
-
-
-// user_dash_board_accordion
-
+        
+    }
+)
