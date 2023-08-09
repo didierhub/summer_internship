@@ -83,6 +83,12 @@ a{
 	align-items: center;
 	padding-right:2% ;
 }
+#care_down ul{
+	display: none;
+	list-style: none;
+	text-decoration: none;
+	text-align: center;
+}
 #log_out_notification_contenair ion-icon{
 	width: 30px;
 	height: 24px;
