@@ -43,13 +43,11 @@ textarea {
 #main_contenair {
 
     width: 80%;
-  
     transform: translatex(-50%);
    position: relative;
    left: 40%;
-    /* background-color: rgb(241, 241, 248); */
-   
     background-image: url("../image/login_backgroung.jpg");
+    background-repeat: repeat;
 }
 
 #derscription {

@@ -58,7 +58,7 @@ $conn->close();
     </div>
 
 
-    <h1>Login</h1>
+    <h1>Log in</h1>
     <form action="login.php" method="post" >
       <label>email</label>
       <input  name="email" type="email" placeholder="" />

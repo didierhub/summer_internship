@@ -1,19 +1,22 @@
 body {
    
    
-   font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
   background-image: url("../image/login_backgroung.jpg");
+  height: 100vh;
+  overflow: hidden;
   
  }
  
  #signup-box {
    width: 360px;
-   height: 70%;
+   height: 600px;
    position:absolute ;
    transform: translate(-50%,-50%);
    top: 50%;
    left: 50%; 
-   background-color: whitesmoke;
+   background-color: gainsboro;
+   box-shadow: 10px 10px 10px grey;
    border-radius: 3px;
    box-shadow: 5px 5px 10px ;
  }
@@ -28,7 +31,7 @@ body {
    top: 50%;
    left: 50%; 
    border-radius: 3px;
-   background-color: whitesmoke;
+   background-color: gainsboro;
    box-shadow: 10px 10px 10px grey;
  }
 
@@ -67,8 +70,8 @@ body {
  
  form label {
    display: flex;
-   margin-top: 5px;
-   font-size: 18px;
+   margin-top: 2px;
+   font-size: 10px;
  }
  
  form input {
@@ -82,6 +85,9 @@ body {
    position: relative;
    transform: translateX(-50%);
    left: 50%;
+ }
+ #signup-box form input{
+  padding: 5px;
  }
 
  input[type="submit"] {

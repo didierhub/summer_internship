@@ -25,10 +25,7 @@
                 <img src="../image/ufulogoen4.png" alt="">
 
             </div>
-            <div id="search">
-                <input type="text" placeholder="search">
-                <span id="search_icon"><ion-icon name="search-outline"></ion-icon></span>
-            </div>
+           
 
             <div id="log_out_notification_contenair">
                <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>

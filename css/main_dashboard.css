@@ -101,6 +101,8 @@ a{
 	right: -85%;
 	z-index: 1;
 	background-color: whitesmoke;
+	border-left: solid 1px red;
+	border-top: solid 1px red;
 	display: none;
 
 

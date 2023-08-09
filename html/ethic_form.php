@@ -1,4 +1,42 @@
 
+<?php
+// Include the database connection file
+include 'db_connection.php';
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve other form data...
+    
+    $signatureData1 = $_POST["signature_data1"];
+    $signatureData2 = $_POST["signature_data2"];
+    
+    // Convert signature data to image files and save them
+    $signatureImage1 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData1));
+    $signatureFileName1 = uniqid() . "_signature1.png";
+    file_put_contents("signatures/" . $signatureFileName1, $signatureImage1);
+    
+    $signatureImage2 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData2));
+    $signatureFileName2 = uniqid() . "_signature2.png";
+    file_put_contents("signatures/" . $signatureFileName2, $signatureImage2);
+    
+    // Insert data into the database
+    $insert_query = "INSERT INTO ethics_form_data (submission_id, user_id, signature_image1, signature_image2) VALUES ('$submission_id', '$user_id', '$signatureFileName1', '$signatureFileName2')";
+    
+    if ($conn->query($insert_query) === TRUE) {
+        echo "Form submitted successfully!";
+    } else {
+        echo "Error: " . $insert_query . "<br>" . $conn->error;
+    }
+}
+
+// Close the database connection
+$conn->close();
+?>
+
+
+
+
+
+
 </body>
 </html><!DOCTYPE html>
 <html lang="en">
@@ -26,10 +64,7 @@
                 <img src="../image/ufulogoen4.png" alt="">
 
             </div>
-            <div id="search">
-                <input type="text" placeholder="search">
-                <span id="search_icon"><ion-icon name="search-outline"></ion-icon></span>
-            </div>
+            
 
             <div id="log_out_notification_contenair">
                <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>

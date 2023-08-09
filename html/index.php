@@ -53,15 +53,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Sign Up</h1>
         <form action="index.php" method="post" >
                     <label>First Name</label>
-                    <input  name="first_name" type="text" placeholder="" />
+                    <input  name="first_name" type="text" placeholder="First Name" />
                     <label>Last Name</label>
-                    <input  name ="last_name"  type="text" placeholder="" />
+                    <input  name ="last_name"  type="text" placeholder="Last Name" />
                     <label>Email</label>
-                    <input  type="email" name="email" placeholder="" />
+                    <input  type="email" name="email" placeholder="Email" />
                     <label>Password</label>
-                    <input  name="password"  type="password" placeholder="" />
+                    <input  name="password"  type="password" placeholder="password" />
                     <label>Confirm Password</label>
-                    <input name="confirm_password" type="password"  placeholder="" />
+                    <input name="confirm_password" type="password"  placeholder="Confirm Password" />
                     <span id="password_error"></span>
                     <input type="submit" value="sin up " />
                     <closeform></closeform>

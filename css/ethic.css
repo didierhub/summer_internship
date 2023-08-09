@@ -12,7 +12,7 @@
 }
 .ethic_form_box{
     width: 80%;
-    background-image: url("../image/login_backgroung.jpg");
+    
 }
 
 #midle_section_contenair_user{
@@ -22,6 +22,7 @@
     margin-top: 5%;
     min-height: 90vh;
     text-align: center;
+    background-image: url("../image/login_backgroung.jpg");
 }
 #midle_section_contenair_user h2{
     margin-top: 5%;
