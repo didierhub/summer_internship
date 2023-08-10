@@ -1,4 +1,8 @@
 @import "../css/main_dashboard.css";
+body{
+    background-image: url("..image/logobg.png");
+    background-repeat: repeat;
+}
 
 #header_contenair{
     position: fixed;
@@ -23,6 +27,7 @@
     min-height: 90vh;
     text-align: center;
     background-image: url("..image/logobg.png");
+    background-repeat: repeat;
 }
 #midle_section_contenair_user h2{
     margin-top: 5%;

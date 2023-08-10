@@ -154,7 +154,7 @@ a{
 
 max-width:20%;
 min-height:90vh;
-background-color: whitesmoke;
+ background-color: whitesmoke; 
 border-top: solid black 1px ;
 display: flex;
 justify-content: center;
@@ -163,6 +163,7 @@ flex-wrap: wrap;
 position: fixed;
 left: 0%;
 border-right: 1px solid black;
+
 
 
 	

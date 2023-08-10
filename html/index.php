@@ -70,12 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>
           By clicking the Sign Up button,you agree to our <br />
           <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
-        </p>
+        <!-- </p>
         <?php
         if (isset($error_message)) {
             echo '<p>' . $error_message . '</p>';
         }
-        ?>
+        ?> -->
         <p class="para-2" id="have_account">
             Already have an account?  <a href="login.php"><span>Login here</span></a>
           </p>

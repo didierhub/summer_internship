@@ -4,6 +4,7 @@
     display: flex;
     justify-content: space-between;
     background-image: url("../image/logobg.png");
+    background-repeat: no-repeat;
 }
 .table_col{
     width: 18%;
