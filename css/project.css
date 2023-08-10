@@ -46,7 +46,7 @@ textarea {
     transform: translatex(-50%);
    position: relative;
    left: 40%;
-    background-image: url("../image/login_backgroung.jpg");
+    background-image: url("..image/logobg.png");
     background-repeat: repeat;
 }
 
