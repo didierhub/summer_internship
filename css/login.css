@@ -1,12 +1,12 @@
 body {
    
-   
-  font-family: "Roboto", sans-serif;
-  background-image: url("..image/logobg.png");
+  font-family: "Roboto", "sans-serif";/* background-image: url("../image/logobg.png"); */
   height: 100vh;
   overflow: hidden;
+  background-image: url("../image/logobg.png");
   
  }
+
  
  #signup-box {
    width: 360px;
@@ -131,4 +131,7 @@ width: 80%;
 display: flex;
 justify-content: center;
 color: #e40707;
+ }
+ .error-message{
+  color: #e40707;
  }

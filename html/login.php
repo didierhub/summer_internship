@@ -28,10 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location:user_dashboard.php ");
             exit();
         } else {
-            echo "Invalid password";
+          $passwordError = "Invalid password";
         }
     } else {
-        echo "Email not found";
+      $emailError = "Email not found";
     }
 }
 
@@ -62,8 +62,10 @@ $conn->close();
     <form action="login.php" method="post" >
       <label>email</label>
       <input  name="email" type="email" placeholder="" />
+      <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
       <label>Password</label>
       <input  name="password"type="password" placeholder="" />
+      <div class="error-message"><?php echo isset($passwordError) ? $passwordError : ''; ?></div>
       <input type="submit" value="log in" />
       <p class="para-2" id="not_have_account">
         Not have an account? <span>  <a href="index.php">Sign Up Here</a> </span>
