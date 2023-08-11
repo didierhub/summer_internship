@@ -1,4 +1,8 @@
 @import "../css/main_dashboard.css";
+body{
+    background-image: url("..image/logobg.png");
+    background-repeat: repeat;
+}
 
 #header_contenair{
     position: fixed;
