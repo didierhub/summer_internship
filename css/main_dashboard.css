@@ -69,7 +69,8 @@ a{
 	position: relative;
 	top: 0;
 	align-items: center;
-	background-color: whitesmoke;
+	background-image: url("..image/logobg.png");
+	height: 100vh;
 	border-bottom: black solid 1px;
 	
 
