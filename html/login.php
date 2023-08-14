@@ -59,7 +59,7 @@ $conn->close();
 
 
     <h1>Log in</h1>
-    <form action="ethic_form.php" method="post" >
+    <form action="login.php" method="post" >
       <label>email</label>
       <input  name="email" type="email" placeholder="" />
       <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>

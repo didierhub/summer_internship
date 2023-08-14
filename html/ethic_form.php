@@ -1,29 +1,15 @@
 
 <?php
 
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ ini_set('display_errors', 1);
+ ini_set('display_startup_errors', 1);
+ error_reporting(E_ALL);
 
 session_start(); // Start the session
 
 // Include the database connection file
 include 'db_connection.php';
 
-if (isset($_SESSION['user_id'])) {
-    // Include the database connection file
-    $userId = $_SESSION['user_id'];
-
-    $query = "SELECT first_name, last_name FROM users WHERE id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
-    $stmt->execute();
-    $stmt->bind_result($first_name, $last_name);
-    $stmt->fetch();
-    $stmt->close();
-
-  
-}
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
