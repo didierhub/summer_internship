@@ -1,79 +1,76 @@
 
 <?php
 
- ini_set('display_errors', 1);
- ini_set('display_startup_errors', 1);
- error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 session_start(); // Start the session
 
 // Include the database connection file
 include 'db_connection.php';
 
-
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user ID from session
     $user_id = $_SESSION["user_id"];
 
-    // Generate the primary key value (combination of year, month, and auto-increment)
-    $year = date("Y");
-    $month = date("m");
-   
+    // Retrieve the last used incremental number
+    $last_incremental_query = "SELECT last_number FROM last_incremental_number";
+    $last_incremental_result = $conn->query($last_incremental_query);
+
+    if ($last_incremental_result) {
+        $last_incremental_row = $last_incremental_result->fetch_assoc();
+        $last_incremental_number = $last_incremental_row['last_number'];
+
+        // Calculate the new incremental number
+        $new_incremental_number = $last_incremental_number + 1;
+
+        // Update the last used incremental number
+        $update_incremental_query = "UPDATE last_incremental_number SET last_number = $new_incremental_number";
+        $conn->query($update_incremental_query);
+
+        // Generate the primary key value (combination of year, month, and auto-increment)
+        $year = date("Y");
+        $month = date("m");
+        $primary_key = $year . $month . $new_incremental_number;
+
+        // Retrieve form data from POST variables
+        $question1 = $_POST["question1"];
+        $question2 = $_POST["question2"];
+        $question3 = $_POST["question3"];
+        $question4 = $_POST["question4"];
+        $question5 = $_POST["question5"];
+        $question6 = $_POST["question6"];
+        $question7 = $_POST["question7"];
+        $researcher_name = $_POST["researcher_name"];
+        $researcher_signature = "researcher_signature_placeholder"; // Set a placeholder value for now
+
+        if (isset($_POST["researcher_signature"])) {
+            $researcher_signature = saveSignatureImage($_POST["researcher_signature"], $primary_key . "_researcher");
+        }
+
+        // Handle supervisor's name and signature
+        $supervisor_name = $_POST["supervisor_name"];
+        $supervisor_signature = "supervisor_signature_placeholder"; // Set a placeholder value for now
+        if (isset($_POST["supervisor_signature"])) {
+            $supervisor_signature = saveSignatureImage($_POST["supervisor_signature"], $primary_key . "_supervisor");
+        }
+
+        // Insert data into the form_ethics table
+        $insert_query = "INSERT INTO form_ethics (primary_key_column, user_id, question1, question2,question3,question4,question5,question6,question7, researcher_name, researcher_signature, supervisor_name, supervisor_signature) 
+                     VALUES ('$primary_key', '$user_id', '$question1', '$question2', '$question3', '$question4','$question5', '$question6','$question7','$researcher_name', '$researcher_signature', '$supervisor_name', '$supervisor_signature')";
     
-    // Check if the primary key already exists in the table to ensure it's unique
-    $check_query = "SELECT * FROM users ORDER BY id DESC
-    LIMIT 1";
-    
-
-    $check_result = $conn->query($check_query);
-
-
-    
-    $incremental = 1;
-    while ($check_result->num_rows > 0) {
-        $new_id=$year.$month.$check_result['id'] ;
-        $check_query = "SELECT * FROM form_ethics WHERE primary_key_column = '$year$month$incremental'";
-        $check_result = $conn->query($check_query);
-    }
-
-    $primary_key = $year . $month . $incremental;
-    
-    // Retrieve form data from POST variables
-    $question1 = $_POST["question1"];
-    $question2 = $_POST["question2"];
-    $question3 = $_POST["question3"];
-    $question4 = $_POST["question4"];
-    $question5 = $_POST["question5"];
-    $question6 = $_POST["question6"];
-    $question7 = $_POST["question7"];
-    // ... (Retrieve other form data)
-
-    // Handle researcher's name and signature
-    $researcher_name = $_POST["researcher_name"];
-    $researcher_signature = "researcher_signature_placeholder"; // Set a placeholder value for now
-    if (isset($_POST["researcher_signature"])) {
-        $researcher_signature = saveSignatureImage($_POST["researcher_signature"], $primary_key . "_researcher");
-    }
-
-    // Handle supervisor's name and signature
-    $supervisor_name = $_POST["supervisor_name"];
-    $supervisor_signature = "supervisor_signature_placeholder"; // Set a placeholder value for now
-    if (isset($_POST["supervisor_signature"])) {
-        $supervisor_signature = saveSignatureImage($_POST["supervisor_signature"], $primary_key . "_supervisor");
-    }
-
-    // Insert data into the form_ethics table
-    $insert_query = "INSERT INTO form_ethics (primary_key_column, user_id, question1, question2,question3,question4,question5,question6,question7, researcher_name, researcher_signature, supervisor_name, supervisor_signature) 
-    VALUES ('$primary_key', '$user_id', '$question1', '$question2', '$question3', '$question4','$question5', '$question6','$question7','$researcher_name', '$researcher_signature', '$supervisor_name', '$supervisor_signature')";
-
-    if ($conn->query($insert_query) === TRUE) {
-        // Data inserted successfully
-        // Redirect to a success page or perform any other necessary actions
-        header("Location: appt_status.php");
+        if ($conn->query($insert_query) === TRUE) {
+            // Data inserted successfully
+            // Redirect to a success page or perform any other necessary actions
+            header("Location: appt_status.php");
+        } else {
+            // Error occurred during insertion
+            echo "Error: " . $insert_query . "<br>" . $conn->error;
+        }
     } else {
-        // Error occurred during insertion
-        echo "Error: " . $insert_query . "<br>" . $conn->error;
+        // Error retrieving last incremental number
+        echo "Error: " . $last_incremental_query . "<br>" . $conn->error;
     }
 }
 
@@ -90,6 +87,9 @@ function saveSignatureImage($signatureData, $fileName) {
 }
 
 ?>
+
+
+
 
 
 
