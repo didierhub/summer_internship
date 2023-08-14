@@ -5,86 +5,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start(); // Start the session
+// Start the session
 
 // Include the database connection file
-include 'db_connection.php';
+require_once 'midleware.php'; 
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user ID from session
     $user_id = $_SESSION["user_id"];
+    $query = "SELECT first_name, last_name FROM users WHERE id = $user_id";
+    $result = $conn->query($query);
 
-    // Retrieve the last used incremental number
-    $last_incremental_query = "SELECT last_number FROM last_incremental_number";
-    $last_incremental_result = $conn->query($last_incremental_query);
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $first_name = $row['first_name'];
+    $last_name = $row['last_name'];
+}
 
-    if ($last_incremental_result) {
-        $last_incremental_row = $last_incremental_result->fetch_assoc();
-        $last_incremental_number = $last_incremental_row['last_number'];
-
-        // Calculate the new incremental number
-        $new_incremental_number = $last_incremental_number + 1;
-
-        // Update the last used incremental number
-        $update_incremental_query = "UPDATE last_incremental_number SET last_number = $new_incremental_number";
-        $conn->query($update_incremental_query);
-
-        // Generate the primary key value (combination of year, month, and auto-increment)
-        $year = date("Y");
-        $month = date("m");
-        $primary_key = $year . $month . $new_incremental_number;
-
-        // Retrieve form data from POST variables
-        $question1 = $_POST["question1"];
-        $question2 = $_POST["question2"];
-        $question3 = $_POST["question3"];
-        $question4 = $_POST["question4"];
-        $question5 = $_POST["question5"];
-        $question6 = $_POST["question6"];
-        $question7 = $_POST["question7"];
-        $researcher_name = $_POST["researcher_name"];
-        $researcher_signature = "researcher_signature_placeholder"; // Set a placeholder value for now
-
-        if (isset($_POST["researcher_signature"])) {
-            $researcher_signature = saveSignatureImage($_POST["researcher_signature"], $primary_key . "_researcher");
-        }
-
-        // Handle supervisor's name and signature
-        $supervisor_name = $_POST["supervisor_name"];
-        $supervisor_signature = "supervisor_signature_placeholder"; // Set a placeholder value for now
-        if (isset($_POST["supervisor_signature"])) {
-            $supervisor_signature = saveSignatureImage($_POST["supervisor_signature"], $primary_key . "_supervisor");
-        }
-
-        // Insert data into the form_ethics table
-        $insert_query = "INSERT INTO form_ethics (primary_key_column, user_id, question1, question2,question3,question4,question5,question6,question7, researcher_name, researcher_signature, supervisor_name, supervisor_signature) 
-                     VALUES ('$primary_key', '$user_id', '$question1', '$question2', '$question3', '$question4','$question5', '$question6','$question7','$researcher_name', '$researcher_signature', '$supervisor_name', '$supervisor_signature')";
-    
-        if ($conn->query($insert_query) === TRUE) {
-            // Data inserted successfully
-            // Redirect to a success page or perform any other necessary actions
-            header("Location: appt_status.php");
-        } else {
-            // Error occurred during insertion
-            echo "Error: " . $insert_query . "<br>" . $conn->error;
-        }
-    } else {
-        // Error retrieving last incremental number
-        echo "Error: " . $last_incremental_query . "<br>" . $conn->error;
-    }
+  
 }
 
 // Close the connection
 $conn->close();
 
-// Function to save signature image and return its path
-function saveSignatureImage($signatureData, $fileName) {
-    $base64Data = str_replace('data:image/png;base64,', '', $signatureData);
-    $imageData = base64_decode($base64Data);
-    $imagePath = "signatures/$fileName.png"; // Set the path to save the image
-    file_put_contents($imagePath, $imageData);
-    return $imagePath;
-}
+
 
 ?>
 
@@ -128,7 +73,9 @@ function saveSignatureImage($signatureData, $fileName) {
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
                 
 
-                <span id="profile">    <img src="../image/profile.jpg" alt=""></span>
+                <span id="profile"> <span class="user_name">
+                 <?php echo " $first_name $last_name!";?>
+                </span>   <img src="../image/profile.jpg" alt=""></span>
 
                 <div class="dropdown-container">
                     <span id="care_down" >

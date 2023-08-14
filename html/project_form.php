@@ -1,8 +1,4 @@
-<?php include 'db_connection.php';
-
-
- $conn->close();
-?>
+<?php require_once 'db_connection.php';?>
 
 </html>
 <!DOCTYPE html>

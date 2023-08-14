@@ -1,8 +1,5 @@
-<?php include 'db_connection.php';
 
-
- $conn->close();
-?>
+<?php require_once 'midleware.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 

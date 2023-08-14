@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 session_start(); // Start the session
 
 // Include the database connection file
-include 'db_connection.php';
+require_once 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];

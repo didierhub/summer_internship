@@ -12,7 +12,8 @@
 // }
 
 // Include the database connection file
-include 'db_connection.php';
+require_once 'db_connection.php';
+
 
 // Query to fetch all user information
 $select_query = "SELECT * FROM users";
