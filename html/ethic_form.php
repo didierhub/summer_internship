@@ -19,14 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate the primary key value (combination of year, month, and auto-increment)
     $year = date("Y");
     $month = date("m");
+   
     
     // Check if the primary key already exists in the table to ensure it's unique
-    $check_query = "SELECT * FROM form_ethics WHERE primary_key_column = '$year$month'";
+    $check_query = "SELECT * FROM users ORDER BY id DESC
+    LIMIT 1";
+    
+
     $check_result = $conn->query($check_query);
+
+
     
     $incremental = 1;
     while ($check_result->num_rows > 0) {
-        $incremental++;
+        $new_id=$year.$month.$check_result['id'] ;
         $check_query = "SELECT * FROM form_ethics WHERE primary_key_column = '$year$month$incremental'";
         $check_result = $conn->query($check_query);
     }

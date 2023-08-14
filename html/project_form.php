@@ -1,3 +1,8 @@
+<?php include 'db_connection.php';
+
+
+ $conn->close();
+?>
 
 </html>
 <!DOCTYPE html>
