@@ -89,7 +89,7 @@
 
 
 
-        <form action="" id="form_contenair">
+        <form action="project_form.php " id="form_contenair" method="post">
 
             <div id="first_block" class="block">
                 <h1> 1. Title of study</h1>
