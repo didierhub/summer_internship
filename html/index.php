@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $result = $conn->query($email_check_query);
   
   if ($result->num_rows > 0) {
-      echo "Email already exists";
+    $emailError= "Email already exists";
   } else {
       // Insert user data into the database
       $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input  name ="last_name"  type="text" placeholder="Last Name" />
                     <label>Email</label>
                     <input  type="email" name="email" placeholder="Email" />
+                    <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
                     <label>Password</label>
                     <input  name="password"  type="password" placeholder="password" />
                     <label>Confirm Password</label>
@@ -70,12 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>
           By clicking the Sign Up button,you agree to our <br />
           <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
-        <!-- </p>
-        <?php
-        if (isset($error_message)) {
-            echo '<p>' . $error_message . '</p>';
-        }
-        ?> -->
+      
         <p class="para-2" id="have_account">
             Already have an account?  <a href="login.php"><span>Login here</span></a>
           </p>
@@ -86,10 +82,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script >
       function validateForm() {
     var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("password_confirm").value;
+    var confirmPassword = document.getElementById("confirm_password").value;
 
     if (password !== confirmPassword) {
-        document.getElementById("main_contenair").style.height='510px';
+        document.getElementById("signup-box").style.height='620px';
         document.getElementById("password_error").textContent = "Passwords do not match.";
         return false;
         

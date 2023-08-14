@@ -1,38 +1,87 @@
 
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start(); // Start the session
+
 // Include the database connection file
 include 'db_connection.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve other form data...
+    // Retrieve user ID from session
+    $user_id = $_SESSION["user_id"];
+
+    // Generate the primary key value (combination of year, month, and auto-increment)
+    $year = date("Y");
+    $month = date("m");
     
-    $signatureData1 = $_POST["signature_data1"];
-    $signatureData2 = $_POST["signature_data2"];
+    // Check if the primary key already exists in the table to ensure it's unique
+    $check_query = "SELECT * FROM form_ethics WHERE primary_key_column = '$year$month'";
+    $check_result = $conn->query($check_query);
     
-    // Convert signature data to image files and save them
-    $signatureImage1 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData1));
-    $signatureFileName1 = uniqid() . "_signature1.png";
-    file_put_contents("signatures/" . $signatureFileName1, $signatureImage1);
+    $incremental = 1;
+    while ($check_result->num_rows > 0) {
+        $incremental++;
+        $check_query = "SELECT * FROM form_ethics WHERE primary_key_column = '$year$month$incremental'";
+        $check_result = $conn->query($check_query);
+    }
+
+    $primary_key = $year . $month . $incremental;
     
-    $signatureImage2 = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $signatureData2));
-    $signatureFileName2 = uniqid() . "_signature2.png";
-    file_put_contents("signatures/" . $signatureFileName2, $signatureImage2);
-    
-    // Insert data into the database
-    $insert_query = "INSERT INTO ethics_form_data (submission_id, user_id, signature_image1, signature_image2) VALUES ('$submission_id', '$user_id', '$signatureFileName1', '$signatureFileName2')";
-    
+    // Retrieve form data from POST variables
+    $question1 = $_POST["question1"];
+    $question2 = $_POST["question2"];
+    $question3 = $_POST["question3"];
+    $question4 = $_POST["question4"];
+    $question5 = $_POST["question5"];
+    $question6 = $_POST["question6"];
+    $question7 = $_POST["question7"];
+    // ... (Retrieve other form data)
+
+    // Handle researcher's name and signature
+    $researcher_name = $_POST["researcher_name"];
+    $researcher_signature = "researcher_signature_placeholder"; // Set a placeholder value for now
+    if (isset($_POST["researcher_signature"])) {
+        $researcher_signature = saveSignatureImage($_POST["researcher_signature"], $primary_key . "_researcher");
+    }
+
+    // Handle supervisor's name and signature
+    $supervisor_name = $_POST["supervisor_name"];
+    $supervisor_signature = "supervisor_signature_placeholder"; // Set a placeholder value for now
+    if (isset($_POST["supervisor_signature"])) {
+        $supervisor_signature = saveSignatureImage($_POST["supervisor_signature"], $primary_key . "_supervisor");
+    }
+
+    // Insert data into the form_ethics table
+    $insert_query = "INSERT INTO form_ethics (primary_key_column, user_id, question1, question2,question3,question4,question5,question6,question7, researcher_name, researcher_signature, supervisor_name, supervisor_signature) 
+    VALUES ('$primary_key', '$user_id', '$question1', '$question2', '$question3', '$question4','$question5', '$question6','$question7','$researcher_name', '$researcher_signature', '$supervisor_name', '$supervisor_signature')";
+
     if ($conn->query($insert_query) === TRUE) {
-        echo "Form submitted successfully!";
+        // Data inserted successfully
+        // Redirect to a success page or perform any other necessary actions
+        header("Location: appt_status.php");
     } else {
+        // Error occurred during insertion
         echo "Error: " . $insert_query . "<br>" . $conn->error;
     }
 }
 
-// Close the database connection
+// Close the connection
 $conn->close();
+
+// Function to save signature image and return its path
+function saveSignatureImage($signatureData, $fileName) {
+    $base64Data = str_replace('data:image/png;base64,', '', $signatureData);
+    $imageData = base64_decode($base64Data);
+    $imagePath = "signatures/$fileName.png"; // Set the path to save the image
+    file_put_contents($imagePath, $imageData);
+    return $imagePath;
+}
+
 ?>
-
-
 
 
 
@@ -103,14 +152,14 @@ $conn->close();
         </div>
 
         
-        <form  id="midle_section_contenair_user">
+        <form  id="midle_section_contenair_user" action="login.php" method="post">
 
             <h2> ETHICS COMMITTEE PROJECT INFORMATION FORM</h2>
             
             <div class="ethic_form_box">
                 <h3> 1. Briefly describe the study to be conducted, including the sub-research questions, and hypotheses if any</h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question1" id="" cols="30" rows="10">
 
                     </textarea>
                 </div>
@@ -122,7 +171,7 @@ $conn->close();
                     hand in a copy of all types of instruments such as scales and questionnaires to be used in the study along
                     with this document.)</h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question2" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -132,7 +181,7 @@ $conn->close();
             <div class="ethic_form_box">
                 <h3> 3. Write down the expected results of your study.</h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question3" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -155,7 +204,7 @@ $conn->close();
                     If yes, please explain. Specify the precautions that will be taken to eliminate or minimize the effects of
                     these items/procedures.</h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question4" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -178,7 +227,7 @@ $conn->close();
                     collection in debriefing the participants.
                     </h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question5" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -189,7 +238,7 @@ $conn->close();
                 <h3> 6. Indicate the potential contributions of the study to your research area and/or the society.
                 </h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question6" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -212,7 +261,7 @@ $conn->close();
                     that you have taken part in and the names of funding institution(s) if any.
                     </h3>
                 <div class="text_area_box">
-                    <textarea name="" id="" cols="30" rows="10">
+                    <textarea name="question7" id="" cols="30" rows="10">
                         
                     </textarea>
                 </div>
@@ -254,64 +303,11 @@ $conn->close();
             </div>
 
 
-
+   <button type="submit"> submit</button>
         </form>
 
     </div>
 
-    <script >
-        class SignaturePad {
-  constructor(signaturePadElement, canvasId) {
-    this.canvas = signaturePadElement.querySelector('.signature-canvas');
-    this.ctx = this.canvas.getContext('2d');
-    this.isDrawing = false;
-    this.lastX = 0;
-    this.lastY = 0;
-
-    this.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
-    this.canvas.addEventListener('mousemove', this.draw.bind(this));
-    this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
-    this.canvas.addEventListener('mouseout', this.stopDrawing.bind(this));
-
-    signaturePadElement.querySelector('.clear-btn').addEventListener('click', this.clearSignature.bind(this));
-    signaturePadElement.querySelector('.save-btn').addEventListener('click', this.saveSignature.bind(this));
-
-    this.canvasId = canvasId;
-  }
-
-  startDrawing(e) {
-    this.isDrawing = true;
-    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-  }
-
-  draw(e) {
-    if (!this.isDrawing) return;
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.lastX, this.lastY);
-    this.ctx.lineTo(e.offsetX, e.offsetY);
-    this.ctx.stroke();
-    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
-  }
-
-  stopDrawing() {
-    this.isDrawing = false;
-  }
-
-  clearSignature() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
-
-  saveSignature() {
-    const signatureImageURL = this.canvas.toDataURL();
-    console.log(`Signature ${this.canvasId}:`, signatureImageURL);
-  }
-}
-
-// Initialize SignaturePad for each signature pad element
-const signaturePads = document.querySelectorAll('.signature-pad');
-signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, index + 1));
-
-    </script>
      <Script src="../js/app.js">
 
  </Script>

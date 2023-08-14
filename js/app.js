@@ -46,3 +46,56 @@ care_up_icon.addEventListener(
         
     }
 )
+//signatuire part
+
+
+class SignaturePad {
+  constructor(signaturePadElement, canvasId) {
+    this.canvas = signaturePadElement.querySelector('.signature-canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.isDrawing = false;
+    this.lastX = 0;
+    this.lastY = 0;
+
+    this.canvas.addEventListener('mousedown', this.startDrawing.bind(this));
+    this.canvas.addEventListener('mousemove', this.draw.bind(this));
+    this.canvas.addEventListener('mouseup', this.stopDrawing.bind(this));
+    this.canvas.addEventListener('mouseout', this.stopDrawing.bind(this));
+
+    signaturePadElement.querySelector('.clear-btn').addEventListener('click', this.clearSignature.bind(this));
+    signaturePadElement.querySelector('.save-btn').addEventListener('click', this.saveSignature.bind(this));
+
+    this.canvasId = canvasId;
+  }
+
+  startDrawing(e) {
+    this.isDrawing = true;
+    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+  }
+
+  draw(e) {
+    if (!this.isDrawing) return;
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.lastX, this.lastY);
+    this.ctx.lineTo(e.offsetX, e.offsetY);
+    this.ctx.stroke();
+    [this.lastX, this.lastY] = [e.offsetX, e.offsetY];
+  }
+
+  stopDrawing() {
+    this.isDrawing = false;
+  }
+
+  clearSignature() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  }
+
+  saveSignature() {
+    const signatureImageURL = this.canvas.toDataURL();
+    console.log(`Signature ${this.canvasId}:`, signatureImageURL);
+  }
+}
+
+// Initialize SignaturePad for each signature pad element
+const signaturePads = document.querySelectorAll('.signature-pad');
+signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, index + 1));
