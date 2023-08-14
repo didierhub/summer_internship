@@ -1,9 +1,9 @@
 
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 session_start(); // Start the session
 
@@ -152,7 +152,7 @@ function saveSignatureImage($signatureData, $fileName) {
         </div>
 
         
-        <form  id="midle_section_contenair_user" action="login.php" method="post">
+        <form  id="midle_section_contenair_user" action="ethic_form.php" method="post">
 
             <h2> ETHICS COMMITTEE PROJECT INFORMATION FORM</h2>
             
@@ -271,7 +271,7 @@ function saveSignatureImage($signatureData, $fileName) {
                
                 <div class="signature">
                     <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
-                    <div class="signature_content"> <input type="text"></div>
+                    <div class="signature_content"> <input type="text" name="researcher_name"></div>
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
@@ -285,7 +285,7 @@ function saveSignatureImage($signatureData, $fileName) {
                   
                 <div class="signature">
                     <div class="signature_content"> <h4>Supervisor’s / Advisor’s name and surname</h4></div>
-                    <div class="signature_content"><input type="text"></div>
+                    <div class="signature_content"><input type="text" name="supervisor_name"></div>
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas2" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
