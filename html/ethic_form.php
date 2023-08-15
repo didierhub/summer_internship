@@ -11,27 +11,50 @@ error_reporting(E_ALL);
 require_once 'midleware.php'; 
 
 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve user ID from session
-    $user_id = $_SESSION["user_id"];
-    $query = "SELECT first_name, last_name FROM users WHERE id = $user_id";
-    $result = $conn->query($query);
+    // Process other form data...
+    $question1 = $_POST["question1"];
+    $question2 = $_POST["question2"];
+    $question3 = $_POST["question3"];
+    $question4 = $_POST["question4"];
+    $question5 = $_POST["question5"];
+    $question6 = $_POST["question6"];
+    $question7 = $_POST["question7"];
+    $researcherName = $_POST["researcher_name"];
 
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $first_name = $row['first_name'];
-    $last_name = $row['last_name'];
+    // Process and save the signature image
+    if (isset($_POST["signatureData"])) {
+        $signatureData = $_POST["signatureData"];
+        $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+        $signatureData = base64_decode($signatureData);
+
+        $signatureFileName = uniqid() . '.png';
+        $signaturePath = 'signature_images/' . $signatureFileName;
+
+        file_put_contents($signaturePath, $signatureData);
+    }
+
+    $insertSQL = "INSERT INTO ethic_form (question1, question2, question3, question4, question5, question6, question7, researcher_name, signature_path)
+                  VALUES ('$question1', '$question2', '$question3', '$question4', '$question5', '$question6', '$question7', '$researcherName', '$signaturePath')";
+
+    if ($conn->query($insertSQL) === TRUE) {
+        echo "Form submitted successfully!";
+    } else {
+        echo "Error: " . $insertSQL . "<br>" . $conn->error;
+    }
+
+    // ... Rest of your form processing ...
 }
 
-  
-}
-
-// Close the connection
 $conn->close();
 
-
-
 ?>
+
+
+
+
+
 
 
 
@@ -237,23 +260,7 @@ $conn->close();
                    
                         
                        
-                  
-                <div class="signature">
-                    <div class="signature_content"> <h4>Supervisor’s / Advisor’s name and surname</h4></div>
-                    <div class="signature_content"><input type="text" name="supervisor_name"></div>
-                    <div class="signature_content"><h4>signature:</h4>
-                        <div class="signature-pad">
-                            <canvas id="signatureCanvas2" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
-                            <button class="clear-btn">Clear Signature</button>
-                            <button class="save-btn">Save Signature</button>
-                          </div>
-                    
-                    </div>
-                   
-                        
-                   
-
-                </div>
+              
 
             </div>
 
