@@ -53,17 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1>Sign Up</h1>
         <form action="index.php" method="post" >
                     <label>First Name</label>
-                    <input  name="first_name" type="text" placeholder="First Name" />
+                    <input  name="first_name" type="text" placeholder="First Name"  require/>
                     <label>Last Name</label>
-                    <input  name ="last_name"  type="text" placeholder="Last Name" />
+                    <input  name ="last_name"  type="text" placeholder="Last Name" require />
                     <label>Email</label>
-                    <input  type="email" name="email" placeholder="Email" />
+                    <input  type="email" name="email" placeholder="Email"  require/>
                     <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
                     <label>Password</label>
-                    <input  name="password"  type="password" placeholder="password" id="password" />
+                    <input  name="password"  type="password" placeholder="password" id="password"  require/>
                     <label>Confirm Password</label>
-                    <input name="confirm_password" type="password"  placeholder="Confirm Password" id="confirm_password" />
-                    <span id="password_error"></span>
+                    <input name="confirm_password" type="password"  placeholder="Confirm Password" id="confirm_password"  require/>
+                    <span id="password_error"> </span>
                     <input type="submit" value="sin up " />
                     <closeform></closeform>
     </form>
@@ -79,24 +79,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-<script >
-      function validateForm() {
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirm_password").value;
+<script>
+function validateForm() {
+   const password = document.getElementById("password").value;
+   const confirmPassword = document.getElementById("confirm_password").value;
+   const passwordError = document.getElementById("password_error");
 
     if (password !== confirmPassword) {
-        document.getElementById("signup-box").style.height='620px';
-        document.getElementById("password_error").textContent = "Passwords do not match.";
-        return false;
-        
+        passwordError.textContent = "Passwords do not match";
+        return false; // Prevent form submission
     } else {
-        document.getElementById("password_error").textContent = "";
-        return true;
+        passwordError.textContent = "";
+        return true; // Allow form submission
     }
 }
+</script>
 
-
-    </script>
   </body>
 </html>
 
