@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hash the password
 
   // Check if the email already exists
-  $email_check_query = "SELECT * FROM SKI_USER WHERE email = '$email'";
+  $email_check_query = "SELECT * FROM users WHERE email = '$email'";
   $result = $conn->query($email_check_query);
   
   if ($result->num_rows > 0) {
@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <input  type="email" name="email" placeholder="Email" />
                     <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
                     <label>Password</label>
-                    <input  name="password"  type="password" placeholder="password" />
+                    <input  name="password"  type="password" placeholder="password" id="password" />
                     <label>Confirm Password</label>
-                    <input name="confirm_password" type="password"  placeholder="Confirm Password" />
+                    <input name="confirm_password" type="password"  placeholder="Confirm Password" id="confirm_password" />
                     <span id="password_error"></span>
                     <input type="submit" value="sin up " />
                     <closeform></closeform>
