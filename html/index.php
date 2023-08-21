@@ -79,20 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-<script>
-function validateForm() {
-   const password = document.getElementById("password").value;
-   const confirmPassword = document.getElementById("confirm_password").value;
-   const passwordError = document.getElementById("password_error");
-
-    if (password !== confirmPassword) {
-        passwordError.textContent = "Passwords do not match";
-        return false; // Prevent form submission
-    } else {
-        passwordError.textContent = "";
-        return true; // Allow form submission
-    }
-}
+<script src="../js/app.js">
+  
 </script>
 
   </body>
