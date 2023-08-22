@@ -14,8 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the user ID from the middleware
     $loggedInUserId = getLoggedInUserId(); // Call the appropriate function from your middleware
 
+    // Get current date and time
+    $submissionDate = date('Y-m-d');         // Current date in YYYY-MM-DD format
+    $submissionTime = date('H:i:s');         // Current time in HH:MM:SS format
+
     // Process other form data...
-    
+    $researcherName = $_POST["researcher_name"];
     $question1 = $_POST["question1"];
     $question2 = $_POST["question2"];
     $question3 = $_POST["question3"];
@@ -23,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $question5 = $_POST["question5"];
     $question6 = $_POST["question6"];
     $question7 = $_POST["question7"];
-    $researcherName = $_POST["researcher_name"];
 
     // Process and save the signature image
     if (isset($_POST["signatureData"])) {
@@ -38,14 +41,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Use prepared statement to insert data
-    $insertSQL = "INSERT INTO ethic_form (user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertSQL = "INSERT INTO ethic_form (user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, submission_date, submission_time)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($insertSQL);
 
     if ($stmt) {
         // Bind parameters and execute the statement
-        $stmt->bind_param("dssssssdsss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath);
+        $stmt->bind_param("dssssssdssssss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $submissionDate, $submissionTime);
 
         if ($stmt->execute()) {
             echo "Form submitted successfully!";
@@ -63,6 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
 
 
 
