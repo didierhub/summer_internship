@@ -4,7 +4,7 @@
 // Handle form submission
 // If the form is submitted
 
-include('db_connection.php');
+require_once ('midleware.php');
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

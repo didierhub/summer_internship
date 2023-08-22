@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 
 
 // Include the database connection file
-
+require_once 'midleware.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the user ID from the middleware
@@ -61,9 +61,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // ... Rest of your form processing ...
+    $conn->close();
 }
 
-$conn->close();
+
+
 ?>
 
 
@@ -113,9 +115,9 @@ $conn->close();
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
                 
 
-                <span id="profile"> <span class="user_name">
-                 <?php echo " $first_name $last_name!";?>
-                </span>   <img src="../image/profile.jpg" alt=""></span>
+                <span id="profile"> 
+                           
+                <img src="../image/profile.jpg" alt=""></span>
 
                 <div class="dropdown-container">
                     <span id="care_down" >
