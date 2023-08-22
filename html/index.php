@@ -1,88 +1,83 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start(); // Start the session
+
+// Include the database connection file
 require_once 'db_connection.php';
 
-// Handle form submission
-// If the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $first_name = $_POST["first_name"];
-  $last_name = $_POST["last_name"];
-  $email = $_POST["email"];
-  $password = password_hash($_POST["password"], PASSWORD_DEFAULT); // Hash the password
+    $email = $_POST["email"];
+    $password = $_POST["password"];
 
-  // Check if the email already exists
-  $email_check_query = "SELECT * FROM users WHERE email = '$email'";
-  $result = $conn->query($email_check_query);
-  
-  if ($result->num_rows > 0) {
-    $emailError= "Email already exists";
-  } else {
-      // Insert user data into the database
-      $insert_query = "INSERT INTO users (first_name, last_name, email, password) VALUES ('$first_name', '$last_name', '$email', '$password')";
-
-      if ($conn->query($insert_query) === TRUE) {
-          // Redirect the user to the video page
-          header("Location:user_dashboard.php");
-          exit(); // Make sure to exit after redirection
-      } else {
-          echo "Error: " . $insert_query . "<br>" . $conn->error;
-      }
-  }
+    // Check if the email exists in the database
+    $email_check_query = "SELECT * FROM users WHERE email = '$email'";
+    $result = $conn->query($email_check_query);
+    
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // Verify password
+        if (password_verify($password, $row["password"])) {
+            // Set session variables for the logged-in user
+            $_SESSION["user_id"] = $row["id"];
+            $_SESSION["user_email"] = $row["email"];
+            // Redirect to the video page or wherever you want
+            header("Location:user_dashboard.php ");
+            exit();
+        } else {
+          $passwordError = "Invalid password";
+        }
+    } else {
+      $emailError = "Email not found";
+    }
 }
+
+// Close the connection
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/login.css" >
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="../css/login.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
+</head>
 
-<div id="signup-box">
+<body>
 
-        <div id="logo">
-             <img src="../image/ufulogoen4.png" alt="">
-        </div>
 
-        <h1>Sign Up</h1>
-        <form action="index.php" method="post" >
-                    <label>First Name</label>
-                    <input  name="first_name" type="text" placeholder="First Name"  require/>
-                    <label>Last Name</label>
-                    <input  name ="last_name"  type="text" placeholder="Last Name" require />
-                    <label>Email</label>
-                    <input  type="email" name="email" placeholder="Email"  require/>
-                    <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
-                    <label>Password</label>
-                    <input  name="password"  type="password" placeholder="password" id="password"  require/>
-                    <label>Confirm Password</label>
-                    <input name="confirm_password" type="password"  placeholder="Confirm Password" id="confirm_password"  require/>
-                    <span id="password_error"> </span>
-                    <input type="submit" value="sin up " />
-                    <closeform></closeform>
+  <div id="login-box">
+
+    <div id="logo">
+      <img src="../image/ufulogoen4.png" alt="">
+    </div>
+
+
+    <h1>Log in</h1>
+    <form action="login.php" method="post" >
+      <label>email</label>
+      <input  name="email" type="email" placeholder="" />
+      <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
+      <label>Password</label>
+      <input  name="password"type="password" placeholder="" />
+      <div class="error-message"><?php echo isset($passwordError) ? $passwordError : ''; ?></div>
+      <input type="submit" value="log in" />
+      <p class="para-2" id="not_have_account">
+        Not have an account? <span>  <a href="sign_up.php">Sign Up Here</a> </span>
+      </p>
+      <closeform></closeform>
     </form>
+  </div>
 
-        <p>
-          By clicking the Sign Up button,you agree to our <br />
-          <a href="#">Terms and Condition</a> and <a href="#">Policy Privacy</a>
-      
-        <p class="para-2" id="have_account">
-            Already have an account?  <a href="login.php"><span>Login here</span></a>
-          </p>
-</div>
-
-
-
-<script src="../js/app.js">
   
-</script>
+  <script src="/app.js">
 
-  </body>
+  </script>
+</body>
+
 </html>
-

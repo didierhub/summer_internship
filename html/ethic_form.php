@@ -1,19 +1,21 @@
 
 <?php
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // Start the session
+session_start();
 
 // Include the database connection file
-require_once 'midleware.php'; 
-
-
+require_once 'midleware.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the user ID from the middleware
+    $loggedInUserId = getLoggedInUserId(); // Call the appropriate function from your middleware
+
     // Process other form data...
+    
     $question1 = $_POST["question1"];
     $question2 = $_POST["question2"];
     $question3 = $_POST["question3"];
@@ -35,21 +37,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         file_put_contents($signaturePath, $signatureData);
     }
 
-    $insertSQL = "INSERT INTO ethic_form (question1, question2, question3, question4, question5, question6, question7, researcher_name, signature_path)
-                  VALUES ('$question1', '$question2', '$question3', '$question4', '$question5', '$question6', '$question7', '$researcherName', '$signaturePath')";
+    // Use prepared statement to insert data
+    $insertSQL = "INSERT INTO ethic_form (user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    if ($conn->query($insertSQL) === TRUE) {
-        echo "Form submitted successfully!";
+    $stmt = $conn->prepare($insertSQL);
+
+    if ($stmt) {
+        // Bind parameters and execute the statement
+        $stmt->bind_param("dssssssdsss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath);
+
+        if ($stmt->execute()) {
+            echo "Form submitted successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        $stmt->close();
     } else {
-        echo "Error: " . $insertSQL . "<br>" . $conn->error;
+        echo "Error: " . $conn->error;
     }
 
     // ... Rest of your form processing ...
 }
 
 $conn->close();
-
 ?>
+
 
 
 
