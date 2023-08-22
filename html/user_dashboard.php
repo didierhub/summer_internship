@@ -1,5 +1,7 @@
 
-<?php require_once 'midleware.php'; ?>
+<?php
+ require_once 'midleware.php'; 
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 

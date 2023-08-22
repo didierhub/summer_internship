@@ -4,10 +4,13 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+include('db_connection.php');
+
+
 session_start(); // Start the session
 
 // Include the database connection file
-require_once 'db_connection.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
@@ -59,7 +62,7 @@ $conn->close();
 
 
     <h1>Log in</h1>
-    <form action="login.php" method="post" >
+    <form action="index.php" method="post" >
       <label>email</label>
       <input  name="email" type="email" placeholder="" />
       <div class="error-message"><?php echo isset($emailError) ? $emailError : ''; ?></div>
@@ -75,7 +78,7 @@ $conn->close();
   </div>
 
   
-  <script src="/app.js">
+  <script src="../js/app.js">
 
   </script>
 </body>

@@ -4,11 +4,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Start the session
-session_start();
+
 
 // Include the database connection file
-require_once 'midleware.php';
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the user ID from the middleware

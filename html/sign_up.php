@@ -1,10 +1,11 @@
 <?php
 
-require_once 'db_connection.php';
-
 
 // Handle form submission
 // If the form is submitted
+
+include('db_connection.php');
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $first_name = $_POST["first_name"];
@@ -54,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
         <h1>Sign Up</h1>
-        <form action="index.php" method="post" >
+        <form action="sign_up.php" method="post" >
                     <label>First Name</label>
                     <input  name="first_name" type="text" placeholder="First Name"  require/>
                     <label>Last Name</label>
@@ -67,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label>Confirm Password</label>
                     <input name="confirm_password" type="password"  placeholder="Confirm Password" id="confirm_password"  require/>
                     <span id="password_error"> </span>
-                    <input type="submit" value="sin up " />
+                    <input type="submit" value="sinup " />
                     <closeform></closeform>
     </form>
 

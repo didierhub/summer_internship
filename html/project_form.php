@@ -1,4 +1,4 @@
-<?php require_once 'db_connection.php';?>
+
 
 </html>
 <!DOCTYPE html>
