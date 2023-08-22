@@ -8,10 +8,19 @@ error_reporting(E_ALL);
 
 // Include the database connection file
 require_once 'midleware.php';
+include('db_connection.php');
+
+ // Get the logged-in user's ID
+ $loggedInUserId = getLoggedInUserId();
+ // Get the user's full name using the ID
+ $userFullName = getUserFullName($loggedInUserId);
+ 
+
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get the user ID from the middleware
-    $loggedInUserId = getLoggedInUserId(); // Call the appropriate function from your middleware
+    // Call the appropriate function from your middleware
 
     // Get current date and time
     $submissionDate = date('Y-m-d');         // Current date in YYYY-MM-DD format
@@ -27,17 +36,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $question6 = $_POST["question6"];
     $question7 = $_POST["question7"];
 
-    // Process and save the signature image
-    if (isset($_POST["signatureData"])) {
-        $signatureData = $_POST["signatureData"];
-        $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-        $signatureData = base64_decode($signatureData);
+  // Process and save the signature image
+if (isset($_POST["signatureData"])) {
+    $signatureData = $_POST["signatureData"];
+    $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
+    $signatureData = base64_decode($signatureData);
 
-        $signatureFileName = uniqid() . '.png';
-        $signaturePath = 'signature_images/' . $signatureFileName;
-
-        file_put_contents($signaturePath, $signatureData);
+    // Create the directory if it doesn't exist
+    $signatureDirectory = 'signature_images/';
+    if (!is_dir($signatureDirectory)) {
+        mkdir($signatureDirectory, 0777, true); // 0777 provides full permissions, adjust as needed
     }
+
+    // Generate a unique filename for the signature image
+    $signatureFileName = uniqid() . '.png';
+    $signaturePath = $signatureDirectory . $signatureFileName;
+
+    // Save the signature image to the specified path
+    file_put_contents($signaturePath, $signatureData);
+}
 
     // Use prepared statement to insert data
     $insertSQL = "INSERT INTO ethic_form (user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, submission_date, submission_time)
@@ -47,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt) {
         // Bind parameters and execute the statement
-        $stmt->bind_param("dssssssdssssss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $submissionDate, $submissionTime);
+        $stmt->bind_param("dsssssssssss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $submissionDate, $submissionTime);
 
         if ($stmt->execute()) {
             echo "Form submitted successfully!";
@@ -61,9 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // ... Rest of your form processing ...
-    $conn->close();
 }
+  
 
+$conn->close();
 
 
 ?>
@@ -114,10 +132,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
                 
-
+                <span>
+                    <?php echo $userFullName; ?>
+                </span>
                 <span id="profile"> 
                            
-                <img src="../image/profile.jpg" alt=""></span>
+                <img src="../image/profile.jpg" alt="">
+            </span>
 
                 <div class="dropdown-container">
                     <span id="care_down" >
@@ -277,7 +298,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           </div>
                     </div>
                    
-                        
+                
                        
               
 

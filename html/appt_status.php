@@ -1,5 +1,16 @@
 
+<?php
+ require_once 'midleware.php'; 
+ include('db_connection.php');
 
+ // Get the logged-in user's ID
+ $loggedInUserId = getLoggedInUserId();
+ 
+ // Get the user's full name using the ID
+ $userFullName = getUserFullName($loggedInUserId);
+ 
+
+ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +44,7 @@
                <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
                 <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
                 
-
+                <span><?php echo $userFullName; ?></span>
                 <span id="profile"> <img src="../image/profile.jpg" alt=""></span>
 
                 <div class="dropdown-container">
