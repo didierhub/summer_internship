@@ -4,28 +4,24 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
-
 // Include the database connection file
 require_once 'midleware.php';
 include('db_connection.php');
 
- // Get the logged-in user's ID
- $loggedInUserId = getLoggedInUserId();
- // Get the user's full name using the ID
- $userFullName = getUserFullName($loggedInUserId);
- 
+// Get the logged-in user's ID
+$loggedInUserId = getLoggedInUserId();
 
+// Get the user's full name using the ID
+$userFullName = getUserFullName($loggedInUserId);
 
+// Calculate the year and month components
+$year = date('Y');
+$month = date('m');
+
+// Get current date
+$submissionDate = date('Y-m-d'); // Current date in YYYY-MM-DD format
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get the user ID from the middleware
-    // Call the appropriate function from your middleware
-
-    // Get current date and time
-    $submissionDate = date('Y-m-d');         // Current date in YYYY-MM-DD format
-    $submissionTime = date('H:i:s');         // Current time in HH:MM:SS format
-
     // Process other form data...
     $researcherName = $_POST["researcher_name"];
     $question1 = $_POST["question1"];
@@ -36,35 +32,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $question6 = $_POST["question6"];
     $question7 = $_POST["question7"];
 
-  // Process and save the signature image
-if (isset($_POST["signatureData"])) {
-    $signatureData = $_POST["signatureData"];
-    $signatureData = str_replace('data:image/png;base64,', '', $signatureData);
-    $signatureData = base64_decode($signatureData);
+    // Process and save the signature image...
+    // (same code as before)
 
-    // Create the directory if it doesn't exist
-    $signatureDirectory = 'signature_images/';
-    if (!is_dir($signatureDirectory)) {
-        mkdir($signatureDirectory, 0777, true); // 0777 provides full permissions, adjust as needed
+    // Calculate the next incremental value for the given year and month
+    function getNextIncrementalValue($conn, $year, $month) {
+        $query = "SELECT MAX(incremental) AS max_incremental FROM ethic_form WHERE YEAR(submission_date) = ? AND MONTH(submission_date) = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ss", $year, $month);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
+
+        $maxIncremental = $row['max_incremental'];
+        return ($maxIncremental !== null) ? ($maxIncremental + 1) : 1;
     }
 
-    // Generate a unique filename for the signature image
-    $signatureFileName = uniqid() . '.png';
-    $signaturePath = $signatureDirectory . $signatureFileName;
+    // Calculate the next incremental value
+    $nextIncremental = getNextIncrementalValue($conn, $year, $month);
 
-    // Save the signature image to the specified path
-    file_put_contents($signaturePath, $signatureData);
-}
+    // Create the primary key
+    $submissionId = $month . $year . str_pad($nextIncremental, 3, '0', STR_PAD_LEFT);
 
     // Use prepared statement to insert data
-    $insertSQL = "INSERT INTO ethic_form (user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, submission_date, submission_time)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertSQL = "INSERT INTO ethic_form (submission_id, user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, month, year, submission_date)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($insertSQL);
 
     if ($stmt) {
         // Bind parameters and execute the statement
-        $stmt->bind_param("dsssssssssss", $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $submissionDate, $submissionTime);
+        $stmt->bind_param("ssssssssssssss", $submissionId, $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $month, $year, $submissionDate);
 
         if ($stmt->execute()) {
             echo "Form submitted successfully!";
@@ -76,27 +74,10 @@ if (isset($_POST["signatureData"])) {
     } else {
         echo "Error: " . $conn->error;
     }
-
-    // ... Rest of your form processing ...
 }
-  
 
 $conn->close();
-
-
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 </body>

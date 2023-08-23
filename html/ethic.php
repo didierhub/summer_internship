@@ -21,14 +21,33 @@ $month = date('m');
 function getNextIncrementalValue($conn, $year, $month) {
     $query = "SELECT MAX(incremental) AS max_incremental FROM ethic_form WHERE YEAR(submission_date) = ? AND MONTH(submission_date) = ?";
     $stmt = $conn->prepare($query);
+    
+    if (!$stmt) {
+        echo "Error preparing statement: " . $conn->error;
+        return false;
+    }
+
     $stmt->bind_param("ss", $year, $month);
-    $stmt->execute();
+    if (!$stmt->execute()) {
+        echo "Error executing statement: " . $stmt->error;
+        return false;
+    }
+
     $result = $stmt->get_result();
+    if (!$result) {
+        echo "Error getting result: " . $stmt->error;
+        return false;
+    }
+
     $row = $result->fetch_assoc();
+    if ($row === null) {
+        return 1; // No records found, start from 1
+    }
 
     $maxIncremental = $row['max_incremental'];
     return ($maxIncremental !== null) ? ($maxIncremental + 1) : 1;
 }
+
 
 // Get current date and time
 $submissionDate = date('Y-m-d');         // Current date in YYYY-MM-DD format
@@ -96,3 +115,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
+
+database code
+  <!-- MySQL returned an empty result set (i.e. zero rows). (Query took 0.0003 seconds.) -->
+<!-- CREATE TABLE ethic_form ( submission_id VARCHAR(20) PRIMARY KEY, user_id INT NOT NULL, researcher_name VARCHAR(255), question1 VARCHAR(255), question2 VARCHAR(255), question3 VARCHAR(255), question4 VARCHAR(255), question5 VARCHAR(255), question6 VARCHAR(255), question7 VARCHAR(255), signature_path VARCHAR(255), month INT, year INT, submission_date DATE, CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id) -- Replace 'users' with the actual users table name ); -->
