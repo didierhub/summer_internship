@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 // Include the database connection file
 require_once 'midleware.php';
 include('db_connection.php');
+include('notification_handler.php');
 
 // Get the logged-in user's ID
 $loggedInUserId = getLoggedInUserId();
