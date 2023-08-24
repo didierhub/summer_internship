@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-<script src="../js/app.js">
+<script src="../js/form.js">
   
 </script>
 
