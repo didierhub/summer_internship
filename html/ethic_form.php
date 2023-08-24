@@ -18,8 +18,27 @@ $userFullName = getUserFullName($loggedInUserId);
 $year = date('Y');
 $month = date('m');
 
+// Calculate the next incremental value for the given year and month
+function getNextIncrementalValue($conn, $year, $month) {
+    $query = "SELECT MAX(incremental) AS max_incremental FROM ethic_form WHERE YEAR(submission_date) = ? AND MONTH(submission_date) = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $year, $month);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    $maxIncremental = $row['max_incremental'];
+    return ($maxIncremental !== null) ? ($maxIncremental + 1) : 1;
+}
+
 // Get current date
 $submissionDate = date('Y-m-d'); // Current date in YYYY-MM-DD format
+
+// Calculate the next incremental value
+$nextIncremental = getNextIncrementalValue($conn, $year, $month);
+
+// Create the primary key
+$submissionId = $year . $month . str_pad($nextIncremental, 3, '0', STR_PAD_LEFT);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process other form data...
@@ -35,34 +54,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Process and save the signature image...
     // (same code as before)
 
-    // Calculate the next incremental value for the given year and month
-    function getNextIncrementalValue($conn, $year, $month) {
-        $query = "SELECT MAX(incremental) AS max_incremental FROM ethic_form WHERE YEAR(submission_date) = ? AND MONTH(submission_date) = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ss", $year, $month);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
-
-        $maxIncremental = $row['max_incremental'];
-        return ($maxIncremental !== null) ? ($maxIncremental + 1) : 1;
-    }
-
-    // Calculate the next incremental value
-    $nextIncremental = getNextIncrementalValue($conn, $year, $month);
-
-    // Create the primary key
-    $submissionId = $month . $year . str_pad($nextIncremental, 3, '0', STR_PAD_LEFT);
-
     // Use prepared statement to insert data
-    $insertSQL = "INSERT INTO ethic_form (submission_id, user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, month, year, submission_date)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertSQL = "INSERT INTO ethic_form (submission_id, user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, month,year ,submission_date, incremental)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     $stmt = $conn->prepare($insertSQL);
 
     if ($stmt) {
         // Bind parameters and execute the statement
-        $stmt->bind_param("ssssssssssssss", $submissionId, $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $month, $year, $submissionDate);
+        $stmt->bind_param("sdssssssssssssd", $submissionId, $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $month ,$year ,$submissionDate, $nextIncremental);
 
         if ($stmt->execute()) {
             echo "Form submitted successfully!";
