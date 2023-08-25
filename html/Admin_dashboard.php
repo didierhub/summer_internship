@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/main_dashboard.css">
+    <link rel="stylesheet" href="../css/admin.css">
 
     <title>Document</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -85,7 +85,7 @@
             <div id="midle_section_contenair_box">
                 <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
                         0</span></div>
-                        <div class="midle_section_box"> <span class="status_name"> Awaiting request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
+                        <div class="midle_section_box"> <span class="status_name"> Reject  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
                         0</span></div>
                 <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"> 0</span>
                 </div>
@@ -100,12 +100,21 @@
                     </div>
                 </div>
 
-                <div id="form_row_column">
-                     <div id="form_row_header">
-                     </div>
-                    <div id="project_form_row"></div>
-                    <div id="ethics_form_row"></div>
+                <div id="form_row">
+                    <div id="forme_decription">
+                        <div class="col"><span>Form Id</span></div>
+                        <div class="col"><span>Form Type</span></div>
+                        <div class="col"><span>Form Status</span></div>
+                        <div class="col"><span>submission Date</span></div>
+                    </div>
+                    <div id="submitted_form_row">
+                        <div class="col"><span >202308001</span></div>
+                        <div class="col"><span >ethic</span></div>
+                        <div class="col"><span >appending</span></div>
+                        <div class="col"><span >submission Date</span></div>
+                    </div>
 
+                    
                 </div>
 
             </div>
