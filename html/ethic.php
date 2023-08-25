@@ -78,3 +78,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $conn->close();
 ?>
+
+
+<!-- ethic_database+_syntac -->
