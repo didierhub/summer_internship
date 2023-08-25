@@ -110,17 +110,4 @@ signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, in
 // SIgn up confirmation part
 
 // app.js
-document.addEventListener("DOMContentLoaded", function () {
-  // Wait for the document to be fully loaded before running the script
-  var password = document.getElementById("password");
-  var confirmPassword = document.getElementById("confirm_password");
-  var passwordError = document.getElementById("password_error");
 
-  confirmPassword.addEventListener("input", function () {
-    if (password.value !== confirmPassword.value) {
-      passwordError.textContent = "Passwords do not match";
-    } else {
-      passwordError.textContent = "";
-    }
-  });
-});
