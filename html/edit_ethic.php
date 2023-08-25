@@ -1,13 +1,7 @@
-
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
-// Include the database connection file
+// Include database connection
+require_once 'db_connection.php';
 require_once 'midleware.php';
-include('db_connection.php');
-include('notification_handler.php');
 
 // Get the logged-in user's ID
 $loggedInUserId = getLoggedInUserId();
@@ -15,70 +9,70 @@ $loggedInUserId = getLoggedInUserId();
 // Get the user's full name using the ID
 $userFullName = getUserFullName($loggedInUserId);
 
-// Calculate the year and month components
-$year = date('Y');
-$month = date('m');
+// Initialize variables to hold form data
+$question1 = $question2 = $question3 = $question4 = $question5 = $question6 = $question7 = $researcherName = "";
 
-// Calculate the next incremental value for the given year and month
-function getNextIncrementalValue($conn, $year, $month) {
-    $query = "SELECT MAX(incremental) AS max_incremental FROM ethic_form WHERE YEAR(submission_date) = ? AND MONTH(submission_date) = ?";
+if (isset($_GET['submission_id'])) {
+    $submissionId = $_GET['submission_id'];
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Retrieve form data from POST
+        $question1 = $_POST['question1'];
+        $question2 = $_POST['question2'];
+        $question3 = $_POST['question3'];
+        $question4 = $_POST['question4'];
+        $question5 = $_POST['question5'];
+        $question6 = $_POST['question6'];
+        $question7 = $_POST['question7'];
+        $researcherName = $_POST['researcher_name'];
+
+        // Update the database with new values
+        $updateQuery = "UPDATE ethic_form SET question1=?, question2=?, question3=?, question4=?, question5=?, question6=?, question7=?, researcher_name=? WHERE submission_id=?";
+        $updateStmt = $conn->prepare($updateQuery);
+        $updateStmt->bind_param("ssssssss", $question1, $question2, $question3, $question4, $question5, $question6, $question7, $researcherName);
+        if ($updateStmt->execute()) {
+            // Update successful
+           
+            header("Location: user_dashboard.php");
+        } else {
+        $erro_update= "Update failed: " . $updateStmt->error;
+
+        }
+        
+        $updateStmt->close();
+    }
+
+    // Fetch the form data for the given submission_id
+    $query = "SELECT * FROM ethic_form WHERE submission_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $year, $month);
+    $stmt->bind_param("s", $submissionId);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
 
-    $maxIncremental = $row['max_incremental'];
-    return ($maxIncremental !== null) ? ($maxIncremental + 1) : 1;
-}
-
-// Get current date
-$submissionDate = date('Y-m-d'); // Current date in YYYY-MM-DD format
-
-// Calculate the next incremental value
-$nextIncremental = getNextIncrementalValue($conn, $year, $month);
-
-// Create the primary key
-$submissionId = $year . $month . str_pad($nextIncremental, 3, '0', STR_PAD_LEFT);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Process other form data...
-    $researcherName = $_POST["researcher_name"];
-    $question1 = $_POST["question1"];
-    $question2 = $_POST["question2"];
-    $question3 = $_POST["question3"];
-    $question4 = $_POST["question4"];
-    $question5 = $_POST["question5"];
-    $question6 = $_POST["question6"];
-    $question7 = $_POST["question7"];
-
-    // Process and save the signature image...
-    // (same code as before)
-
-    // Use prepared statement to insert data
-    $insertSQL = "INSERT INTO ethic_form (submission_id, user_id, researcher_name, question1, question2, question3, question4, question5, question6, question7, signature_path, month,year ,submission_date, incremental)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-    $stmt = $conn->prepare($insertSQL);
-
-    if ($stmt) {
-        // Bind parameters and execute the statement
-        $stmt->bind_param("sdssssssssssssd", $submissionId, $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $month ,$year ,$submissionDate, $nextIncremental);
-
-        if ($stmt->execute()) {
-            echo "Form submitted successfully!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-
-        $stmt->close();
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        // You can use $row to populate the HTML inputs
+        $question1 = $row['question1'];
+        $question2 = $row['question2'];
+        $question3 = $row['question3'];
+        $question4 = $row['question4'];
+        $question5 = $row['question5'];
+        $question6 = $row['question6'];
+        $question7 = $row['question7'];
+        $researcherName = $row['researcher_name'];
     } else {
-        echo "Error: " . $conn->error;
+        echo "Form not found.";
     }
+
+    $stmt->close();
+} else {
+    echo "Submission ID not provided.";
 }
 
 $conn->close();
 ?>
+
+<!-- Rest of your HTML form code -->
 
 </html><!DOCTYPE html>
 <html lang="en">
@@ -150,7 +144,7 @@ $conn->close();
         </div>
 
         
-        <form  id="midle_section_contenair_user" action="ethic_form.php" method="post">
+        <form  id="midle_section_contenair_user" action="edit_ethic.php" method="post">
 
             <h2> ETHICS COMMITTEE PROJECT INFORMATION FORM</h2>
             
@@ -158,7 +152,7 @@ $conn->close();
                 <h3> 1. Briefly describe the study to be conducted, including the sub-research questions, and hypotheses if any</h3>
                 <div class="text_area_box">
                     <textarea name="question1" id="" cols="30" rows="10">
-
+                    <?php echo $question1;?>
                     </textarea>
                 </div>
 
@@ -170,7 +164,7 @@ $conn->close();
                     with this document.)</h3>
                 <div class="text_area_box">
                     <textarea name="question2" id="" cols="30" rows="10">
-                        
+                    <?php echo $question2;?>
                     </textarea>
                 </div>
 
@@ -180,7 +174,7 @@ $conn->close();
                 <h3> 3. Write down the expected results of your study.</h3>
                 <div class="text_area_box">
                     <textarea name="question3" id="" cols="30" rows="10">
-                        
+                    <?php echo $question3;?>
                     </textarea>
                 </div>
 
@@ -203,7 +197,7 @@ $conn->close();
                     these items/procedures.</h3>
                 <div class="text_area_box">
                     <textarea name="question4" id="" cols="30" rows="10">
-                        
+                    <?php echo $question4;?>
                     </textarea>
                 </div>
 
@@ -226,7 +220,7 @@ $conn->close();
                     </h3>
                 <div class="text_area_box">
                     <textarea name="question5" id="" cols="30" rows="10">
-                        
+                    <?php echo $question5;?>
                     </textarea>
                 </div>
 
@@ -237,7 +231,7 @@ $conn->close();
                 </h3>
                 <div class="text_area_box">
                     <textarea name="question6" id="" cols="30" rows="10">
-                        
+                    <?php echo $question6;?>
                     </textarea>
                 </div>
 
@@ -260,7 +254,7 @@ $conn->close();
                     </h3>
                 <div class="text_area_box">
                     <textarea name="question7" id="" cols="30" rows="10">
-                        
+                    <?php echo $question7;?>
                     </textarea>
                 </div>
 
@@ -269,7 +263,7 @@ $conn->close();
                
                 <div class="signature">
                     <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
-                    <div class="signature_content"> <input type="text" name="researcher_name"></div>
+                    <div class="signature_content"> <input type="text" name="researcher_name"  value="<?php echo $researcherName; ?>" ></div>
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
@@ -285,7 +279,10 @@ $conn->close();
             </div>
 
 
-   <button type="submit" > submit</button>
+   <button type="update" >Update</button>
+   <h1>  <?php echo  isset($successe_message)?  $successe_message: ''; ?></h1>
+  
+   <h1>  <?php echo  isset($erro_update)?  $$erro_update: ''; ?> </h1>
         </form>
 
     </div>
@@ -296,3 +293,4 @@ $conn->close();
 </body>
 
 </html>
+

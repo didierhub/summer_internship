@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../css/admin_appt_fetch.css">
 
     <title>Document</title>
 <!-- 
@@ -151,7 +151,7 @@
 
         // Fetch submitted forms initially and then every X seconds
         fetchSubmittedForms();
-        setInterval(fetchSubmittedForms, 5000); // Refresh every 5 seconds
+        setInterval(fetchSubmittedForms, 3000); // Refresh every 5 seconds
     });
     </script>
 

@@ -1,41 +1,35 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <
-  <style>
-    /* Add any necessary CSS styles for the dropdown */
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: white;
-      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
+<div><?php
+  // Include database connection
+  require_once 'db_connection.php';
+  require_once 'midleware.php';
+  // / Get the logged-in user's ID
+   $loggedInUserId = getLoggedInUserId();
+   
+   // Get the user's full name using the ID
+   $userFullName = getUserFullName($loggedInUserId);
   
-    .dropdown-content.show {
-      display: block;
-    }
-  </style>
-  !-- Include necessary CSS and JavaScript libraries, such as Ionic and any custom styles or scripts. -->
-  <!-- Make sure to include the Ionicons library for the icons. -->
-</head>
-<body>
-  <div class="dropdown-container">
-    <span id="care_down" onclick="toggleDropdown()">
-      <ion-icon name="caret-down-outline"></ion-icon>
-      <ul id="dropdown-content" class="dropdown-content">
-        <li>Dashboard</li>
-        <li>Log out <span><ion-icon name="exit-outline"></ion-icon></span></li>
-      </ul>
-    </span>
-  </div>
-
-  <script>
-    function toggleDropdown() {
-      var dropdownContent = document.getElementById("dropdown-content");
-      dropdownContent.classList.toggle("show");
-    }
-  </script>
-</body>
-</html>
-
+  
+  if (isset($_GET['submission_id'])) {
+      $submissionId = $_GET['submission_id'];
+  
+      // Fetch the form data for the given submission_id
+      $query = "SELECT * FROM ethic_form WHERE submission_id = ?";
+      $stmt = $conn->prepare($query);
+      $stmt->bind_param("s", $submissionId);
+      $stmt->execute();
+      $result = $stmt->get_result();
+  
+      if ($result && $result->num_rows > 0) {
+          $row = $result->fetch_assoc();
+          // You can use $row to populate the HTML inputs
+      } else {
+          echo "Form not found.";
+      }
+  
+      $stmt->close();
+  } else {
+      echo "Submission ID not provided.";
+  }
+  
+  $conn->close();
+  ?> </div>

@@ -77,7 +77,7 @@
             <div><a href="project_form.php""><ion-icon name="create-outline"></ion-icon> <span>Ethics form <span></span></a></div>
             <div><a href="ethic_form.php" > <ion-icon name="receipt-outline"></ion-icon> <span>Project form
                     </span></a></div>
-            <div><a href=""> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
+            <div><a href="appt_status.php""> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
         </div>
 
 

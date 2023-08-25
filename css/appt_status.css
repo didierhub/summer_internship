@@ -1,4 +1,6 @@
 @import "../css/main_dashboard.css";
+@import "../css/admin_appt_fetch.css";
+
 #status_main_section{
     width: 100%;
     display: flex;

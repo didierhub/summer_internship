@@ -18,8 +18,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 
+    link for json -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- iconic_formivon -->
 
     <link rel="stylesheet" href="../css/appt_status.css">
+    
       
     <title>Document</title>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -108,43 +115,9 @@
 
 
                 </div>
-                <div id="status_main_section">
-                    <div  class="sub_table_col  first-of-type">
-                      <ol>
-                        <li>20230701</li>
-                      </ol>
-   
-                       </div> <div class="sub_table_col">
-                       <ul>
-                        <li>Ethics App</li>
-                        <li>project App</li>
-                       </ul>
-   
-                       </div> <div class="sub_table_col">
-                       <ul>
-                        <li>new</li>
-                        <!-- <li>revesion</li>
-                        <li> pending</li>
-                        <li>approval</li>
-                        <li>extention</li>
-                        <li>modification</li> -->
-                       </ul>
-                       </div> <div class="sub_table_col">
-                        <h3>good work</h3>
-   
-                       </div> <div class="sub_table_col" id="edit_box">
-                       <button id="edit"> edit</button>
-                       <button id="delete"> delete</button>
-   
-                       </div>
+            
 
-                </div>
-
-                <div id="form_row_column">
-                     <div id="form_row_header">
-                     </div>
-                    <div id="project_form_row"></div>
-                    <div id="ethics_form_row"></div>
+                <div id="dynamic_row_contenmair">
 
                 </div>
 
@@ -156,6 +129,29 @@
         </div>
 
     </div>
+
+    <script>
+    $(document).ready(function() {
+        // Fetch and display submitted forms
+        function fetchSubmittedForms() {
+            $.ajax({
+                url: 'fetch_app_status.php', // Replace with actual PHP script
+                method: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    $("#dynamic_row_contenmair").html(data); // Replace the form list content
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", errorThrown);
+                }
+            });
+        }
+
+        // Fetch submitted forms initially and then every X seconds
+        fetchSubmittedForms();
+        setInterval(fetchSubmittedForms, 3000); // Refresh every 5 seconds
+    });
+    </script>
 
     <Script src="../js/app.js">
 
