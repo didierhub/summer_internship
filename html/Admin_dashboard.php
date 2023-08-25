@@ -21,6 +21,12 @@
     <link rel="stylesheet" href="../css/admin.css">
 
     <title>Document</title>
+<!-- 
+    link for json -->
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- iconic_formivon -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     
@@ -98,6 +104,8 @@
                         <button type="button">view all</button>
 
                     </div>
+
+
                 </div>
 
                 <div id="form_row">
@@ -107,12 +115,10 @@
                         <div class="col"><span>Form Status</span></div>
                         <div class="col"><span>submission Date</span></div>
                     </div>
-                    <div id="submitted_form_row">
-                        <div class="col"><span >202308001</span></div>
-                        <div class="col"><span >ethic</span></div>
-                        <div class="col"><span >appending</span></div>
-                        <div class="col"><span >submission Date</span></div>
-                    </div>
+                <div id="dynamic_row_contenmair">
+
+                </div>
+                   
 
                     
                 </div>
@@ -126,7 +132,31 @@
 
     </div>
 
+    <script>
+    $(document).ready(function() {
+        // Fetch and display submitted forms
+        function fetchSubmittedForms() {
+            $.ajax({
+                url: 'fetch_submitted_forms.php', // Replace with actual PHP script
+                method: 'GET',
+                dataType: 'html',
+                success: function(data) {
+                    $("#dynamic_row_contenmair").html(data); // Replace the form list content
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("AJAX Error:", errorThrown);
+                }
+            });
+        }
+
+        // Fetch submitted forms initially and then every X seconds
+        fetchSubmittedForms();
+        setInterval(fetchSubmittedForms, 5000); // Refresh every 5 seconds
+    });
+    </script>
+
     <Script src="../js/app.js">
+
 
 </Script>
 </body>
