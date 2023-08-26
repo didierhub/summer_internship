@@ -66,7 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sdssssssssssssd", $submissionId, $loggedInUserId, $researcherName, $question1, $question2, $question3, $question4, $question5, $question6, $question7, $signaturePath, $month ,$year ,$submissionDate, $nextIncremental);
 
         if ($stmt->execute()) {
-            echo "Form submitted successfully!";
+          
+            $successMessage = "Data inserted successfully!";
+            
         } else {
             echo "Error: " . $stmt->error;
         }
@@ -269,7 +271,7 @@ $conn->close();
                
                 <div class="signature">
                     <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
-                    <div class="signature_content"> <input type="text" name="researcher_name"></div>
+                    <div class="signature_content"> <input type="text" name="researcher_name" id="researcher_name"></div>
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
@@ -285,10 +287,16 @@ $conn->close();
             </div>
 
 
-   <button type="submit" > submit</button>
+   <button   class="submit_btn" type="submit" > submit</button>
+   
         </form>
 
     </div>
+    <script>
+    <?php if (isset($successMessage))  ?>
+        alert("<?php echo $successMessage; ?>");
+       
+</script>
 
      <Script src="../js/app.js">
 

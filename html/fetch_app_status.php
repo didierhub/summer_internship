@@ -19,9 +19,13 @@ if ($result) {
         echo "<div class='col'><span>" . $row['form_type'] . "</span></div>";
         echo "<div class='col'><span>" . $row['status'] . "</span></div>";
         echo "<div class='col'><span>" . $row['submission_date'] . "</span></div>";
-        echo "<div class='col'><a href='edit_ethic.php?submission_id=" . $row['submission_id'] . "'>Edit</a></div>";
-        echo "<div class='col'><a href='update_ethic.php?submission_id=" . $row['submission_id'] . "'>Delete</a></div>";
+        echo "<div class='col'><a href='edit_ecthic.php?submission_id=" . $row['submission_id'] . "'>Edit</a></div>";
+        echo '<div class="col"> <a href="delete_ethic.php?submission_id=' . $row['submission_id'] . '" onclick="return confirm(\'Are you sure you want to delete this submission?\')">Delete</a></div>';
+
+       
         echo "</div>";
+      
+
     }
 } else {
     echo "Error: " . $stmt->error;

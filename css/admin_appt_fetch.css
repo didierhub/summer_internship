@@ -31,10 +31,12 @@
 }
 #submitted_form_row:hover{
     box-shadow:  2px 1px 2px red;
+    transform: scale(1)  ;
 
 }
 #submitted_form_row span:hover{
    cursor: pointer;
+   transform: scale(1.2) ; 
 
 }
 .col{

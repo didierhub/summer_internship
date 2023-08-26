@@ -1,4 +1,9 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 // Include database connection
 require_once 'db_connection.php';
 require_once 'midleware.php';
@@ -12,45 +17,19 @@ $userFullName = getUserFullName($loggedInUserId);
 // Initialize variables to hold form data
 $question1 = $question2 = $question3 = $question4 = $question5 = $question6 = $question7 = $researcherName = "";
 
-if (isset($_GET['submission_id'])) {
+if (isset ($_GET['submission_id'])) {
     $submissionId = $_GET['submission_id'];
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Retrieve form data from POST
-        $question1 = $_POST['question1'];
-        $question2 = $_POST['question2'];
-        $question3 = $_POST['question3'];
-        $question4 = $_POST['question4'];
-        $question5 = $_POST['question5'];
-        $question6 = $_POST['question6'];
-        $question7 = $_POST['question7'];
-        $researcherName = $_POST['researcher_name'];
-
-        // Update the database with new values
-        $updateQuery = "UPDATE ethic_form SET question1=?, question2=?, question3=?, question4=?, question5=?, question6=?, question7=?, researcher_name=? WHERE submission_id=?";
-        $updateStmt = $conn->prepare($updateQuery);
-        $updateStmt->bind_param("ssssssss", $question1, $question2, $question3, $question4, $question5, $question6, $question7, $researcherName);
-        if ($updateStmt->execute()) {
-            // Update successful
-           
-            header("Location: user_dashboard.php");
-        } else {
-        $erro_update= "Update failed: " . $updateStmt->error;
-
-        }
-        
-        $updateStmt->close();
-    }
-
+    
     // Fetch the form data for the given submission_id
     $query = "SELECT * FROM ethic_form WHERE submission_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $submissionId);
+    $stmt->bind_param("s",   $submissionId);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
+       
         // You can use $row to populate the HTML inputs
         $question1 = $row['question1'];
         $question2 = $row['question2'];
@@ -60,14 +39,55 @@ if (isset($_GET['submission_id'])) {
         $question6 = $row['question6'];
         $question7 = $row['question7'];
         $researcherName = $row['researcher_name'];
-    } else {
+        
+    } 
+    
+    else {
         echo "Form not found.";
     }
 
     $stmt->close();
-} else {
-    echo "Submission ID not provided.";
-}
+} 
+
+   
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST")
+     {
+        // Retrieve form data from POST
+        $question1 = $_POST['question1'];
+        $question2 = $_POST['question2'];
+        $question3 = $_POST['question3'];
+        $question4 = $_POST['question4'];
+        $question5 = $_POST['question5'];
+        $question6 = $_POST['question6'];
+        $question7 = $_POST['question7'];
+        $researcherName = $_POST['researcher_name'];
+        
+        // Update the database with new values
+        $updateQuery = "UPDATE ethic_form SET question1=?, question2=?, question3=?, question4=?, question5=?, question6=?, question7=?, researcher_name=? WHERE submission_id=?";
+        $updateStmt = $conn->prepare($updateQuery);
+        $updateStmt->bind_param("sssssssss", $question1, $question2, $question3, $question4, $question5, $question6, $question7, $researcherName, $submissionId);
+        if ($updateStmt->execute()) 
+        {
+            // Update successful
+           
+            header("Location: user_dashboard.php");
+        } 
+        else 
+        {
+        $erro_update= "Update failed: " . $updateStmt->error;
+
+        }
+        
+        $updateStmt->close();
+    }
+
+// else {
+    
+//     $submission_ID="Submission ID not provided.";
+   
+
+// }
 
 $conn->close();
 ?>
@@ -130,7 +150,7 @@ $conn->close();
             </div>
 
 
-        </div>
+        </div> 
 
 
         <div id="dash_board_menu">
@@ -273,7 +293,7 @@ $conn->close();
                     </div>
                    
                 
-                       
+                    <input type="hidden" name="submission_id" value="<?php echo  $submissionId; ?>">
               
 
             </div>
@@ -282,7 +302,10 @@ $conn->close();
    <button type="update" >Update</button>
    <h1>  <?php echo  isset($successe_message)?  $successe_message: ''; ?></h1>
   
-   <h1>  <?php echo  isset($erro_update)?  $$erro_update: ''; ?> </h1>
+   <h1>  <?php echo  isset($erro_update)?  $erro_update: ''; ?> </h1>
+   <h1>  <?php echo  isset($submission_ID)?  $submission_ID: ''; ?> </h1>
+   <h1>  <?php echo  isset($submissionId)?  $submissionId: ''; ?> </h1>
+   
         </form>
 
     </div>
