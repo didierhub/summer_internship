@@ -45,8 +45,7 @@ if (isset($_GET['submission_id'])) {
                     $updateEditableStmt->execute();
                     $updateEditableStmt->close();
                 }
-                $updatedStatus = $status; // Store updated status
-                $updatedComments = $comment; // Store updated comments
+            
                 echo "Status and comments updated successfully!";
             } 
             else {
@@ -292,22 +291,22 @@ $conn->close();
     <div  id="contenair_comment">
 
         <label for="comments">Comments:</label>
-        <textarea name="comment" id="comments" rows="30"> <?php echo isset($row['comment']) ? $row['comment'] : ''; ?></textarea>
+        <textarea name="comment" id="comments" rows="30"> </textarea>
     
         <br>
     </div>
 
   <div id="status_contenair">
-         <input type="hidden" name="submission_id" value="<?php echo $row['submission_id']; ?>">
+        
                     <label>Choose Status:</label>
                     <div id="status-buttons">
                         <label>
                             
-                            <input type="radio" name="status" value="approve" <?php if ($row['form_status'] === 'approve') echo 'checked'; ?>>
+                            <input type="radio" name="status" value="approve">
                             <button type="button"  class="submit_btn">Approve</button>
                         </label>
                         <label>
-                            <input type="radio" name="status" value="reject" <?php if ($row['form_status'] === 'reject') echo 'checked'; ?> >
+                            <input type="radio" name="status" value="reject"  >
                             <button type="button"  class="submit_btn" >Reject</button>
                         </label>
                     </div>
