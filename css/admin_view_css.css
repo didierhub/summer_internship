@@ -1,0 +1,38 @@
+@import "../css/main_dashboard.css";
+@import "../css/ethic.css";
+
+
+#midle_section_contenair_user{
+    position: relative;
+    left: 0%;
+
+}
+#comment_approve_reject_contenair{
+    transform: translate(-50%,-50%);
+    position: fixed;
+    right: -10%;
+    bottom:  -10%;
+    background-color: gainsboro;
+    box-shadow: 10px 10px 10px grey;
+    width: 20%;
+}
+#save_contenair_button{
+    width: 90%;
+    text-align: center;
+}
+#comments{
+    width: 100%;
+}
+#status-buttons{
+    display: flex;
+    justify-content: space-around;
+}
+.submit_btn:hover{
+    transform: none;
+}
+
+.save_btn{
+   background-color: orange;
+   position: relative;
+   
+}

@@ -1,8 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+// Include database connection and necessary files
 
 // Include database connection
 require_once 'db_connection.php';
@@ -14,23 +11,50 @@ $loggedInUserId = getLoggedInUserId();
 // Get the user's full name using the ID
 $userFullName = getUserFullName($loggedInUserId);
 
-// Initialize variables to hold form data
-$question1 = $question2 = $question3 = $question4 = $question5 = $question6 = $question7 = $researcherName = "";
 
-if (isset ($_GET['submission_id'])) {
+if (isset($_GET['submission_id'])) {
     $submissionId = $_GET['submission_id'];
-    
-    // Fetch the form data for the given submission_id
+
+    // Fetch form details for the selected submission ID
     $query = "SELECT * FROM ethic_form WHERE submission_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("s",   $submissionId);
+    $stmt->bind_param("s", $submissionId);
     $stmt->execute();
     $result = $stmt->get_result();
 
-    if ($result && $result->num_rows > 0) {
+    if ($result && $result->num_rows > 0)
+    {
         $row = $result->fetch_assoc();
-       
-        // You can use $row to populate the HTML inputs
+        
+        // Handle form update if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $status = $_POST['form_status'];
+            $comment = $_POST['comment'];
+            
+            // Update status and comments in the database
+            $updateQuery = "UPDATE ethic_form SET form_status = ?, comment = ? WHERE submission_id = ?";
+            $updateStmt = $conn->prepare($updateQuery);
+            $updateStmt->bind_param("sss", $status, $comment, $submissionId);
+            
+            if ($updateStmt->execute()) {
+                if ($status === 'approve') {
+                    // Update the 'editable' column to 0 to disable further edits
+                    $updateEditableQuery = "UPDATE ethic_form SET editable = 0 WHERE submission_id = ?";
+                    $updateEditableStmt = $conn->prepare($updateEditableQuery);
+                    $updateEditableStmt->bind_param("s", $submissionId);
+                    $updateEditableStmt->execute();
+                    $updateEditableStmt->close();
+                }
+                $updatedStatus = $status; // Store updated status
+                $updatedComments = $comment; // Store updated comments
+                echo "Status and comments updated successfully!";
+            } 
+            else {
+                echo "Update failed: " . $updateStmt->error;
+            }
+            
+            $updateStmt->close();
+        }
         $question1 = $row['question1'];
         $question2 = $row['question2'];
         $question3 = $row['question3'];
@@ -40,59 +64,18 @@ if (isset ($_GET['submission_id'])) {
         $question7 = $row['question7'];
         $researcherName = $row['researcher_name'];
         
-    } 
-    
-    else {
+    } else {
         echo "Form not found.";
     }
 
     $stmt->close();
-} 
+} else {
+    echo "Submission ID not provided.";
+}
 
-   
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
-     {
-        // Retrieve form data from POST
-        $question1 = $_POST['question1'];
-        $question2 = $_POST['question2'];
-        $question3 = $_POST['question3'];
-        $question4 = $_POST['question4'];
-        $question5 = $_POST['question5'];
-        $question6 = $_POST['question6'];
-        $question7 = $_POST['question7'];
-        $researcherName = $_POST['researcher_name'];
-        
-        // Update the database with new values
-        $updateQuery = "UPDATE ethic_form SET question1=?, question2=?, question3=?, question4=?, question5=?, question6=?, question7=?, researcher_name=? WHERE submission_id=?";
-        $updateStmt = $conn->prepare($updateQuery);
-        $updateStmt->bind_param("sssssssss", $question1, $question2, $question3, $question4, $question5, $question6, $question7, $researcherName, $submissionId);
-        if ($updateStmt->execute()) 
-        {
-            // Update successful
-           
-            header("Location: user_dashboard.php");
-        } 
-        else 
-        {
-        $erro_update= "Update failed: " . $updateStmt->error;
-
-        }
-        
-        $updateStmt->close();
-    }
-
-// else {
-    
-//     $submission_ID="Submission ID not provided.";
-   
-
-// }
-
+// Close database connection
 $conn->close();
 ?>
-
-<!-- Rest of your HTML form code -->
 
 
 <html lang="en">
@@ -101,7 +84,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/ethic.css">
+    <link rel="stylesheet" href="../css/admin_view_css.css">
    
 
     <title>Document</title>
@@ -114,7 +97,7 @@ $conn->close();
 
     <div id="main_wrapper">
 
-
+<!-- 
         <div id="header_contenair">
             <div id="logo">
                 <img src="../image/ufulogoen4.png" alt="">
@@ -147,12 +130,12 @@ $conn->close();
                   </div>
 
 
-            </div>
+            </div> -->
 
 
         </div> 
 
-
+<!-- 
         <div id="dash_board_menu">
 
             
@@ -161,7 +144,7 @@ $conn->close();
             <div><a href="project_form.php"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
                     </span></a></div>
             <div><a href="appt_status.php"> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
-        </div>
+        </div> -->
 
         
         <form  id="midle_section_contenair_user" action="edit_ethic.php" method="post">
@@ -287,8 +270,8 @@ $conn->close();
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
-                            <button class="clear-btn">Clear Signature</button>
-                            <button class="save-btn">Save Signature</button>
+                            <!-- <button class="clear-btn">Clear Signature</button>
+                            <button class="save-btn">Save Signature</button> -->
                           </div>
                     </div>
                    
@@ -299,16 +282,44 @@ $conn->close();
             </div>
 
 
-   <button type="update" >Update</button>
-   <h1>  <?php echo  isset($successe_message)?  $successe_message: ''; ?></h1>
   
-   <h1>  <?php echo  isset($erro_update)?  $erro_update: ''; ?> </h1>
-   <h1>  <?php echo  isset($submission_ID)?  $submission_ID: ''; ?> </h1>
-   <h1>  <?php echo  isset($submissionId)?  $submissionId: ''; ?> </h1>
    
         </form>
 
+       
     </div>
+    <form  id="comment_approve_reject_contenair"  action="admin_view_ethic_form_and_comment.php" method="post" >
+    <div  id="contenair_comment">
+
+        <label for="comments">Comments:</label>
+        <textarea name="comment" id="comments" rows="30"> <?php echo isset($row['comment']) ? $row['comment'] : ''; ?></textarea>
+    
+        <br>
+    </div>
+
+  <div id="status_contenair">
+         <input type="hidden" name="submission_id" value="<?php echo $row['submission_id']; ?>">
+                    <label>Choose Status:</label>
+                    <div id="status-buttons">
+                        <label>
+                            
+                            <input type="radio" name="status" value="approve" <?php if ($row['form_status'] === 'approve') echo 'checked'; ?>>
+                            <button type="button"  class="submit_btn">Approve</button>
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="reject" <?php if ($row['form_status'] === 'reject') echo 'checked'; ?> >
+                            <button type="button"  class="submit_btn" >Reject</button>
+                        </label>
+                    </div>
+                  
+    </div>
+
+    <div id="save_contenair_button">
+    <input type="submit" value="Save" class="submit_btn save_btn" >
+    </div>
+   
+    </form>
+
 
      <Script src="../js/app.js">
 
@@ -316,4 +327,3 @@ $conn->close();
 </body>
 
 </html>
-
