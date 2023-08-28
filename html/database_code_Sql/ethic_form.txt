@@ -19,3 +19,8 @@ CREATE TABLE ethic_form (
     comment TEXT,
      editable INT DEFAULT 1
 );
+
+
+
+
+
