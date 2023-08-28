@@ -1,0 +1,21 @@
+CREATE TABLE ethic_form (
+    submission_id INT PRIMARY KEY,
+    user_id INT,
+    researcher_name VARCHAR(255),
+    question1 TEXT,
+    question2 TEXT,
+    question3 TEXT,
+    question4 TEXT,
+    question5 TEXT,
+    question6 TEXT,
+    question7 TEXT,
+    signature_path VARCHAR(255),
+    month INT,
+    year INT,
+    submission_date DATETIME,
+    incremental INT,
+    form_status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
+    form_type ENUM('Ethics', 'Project') DEFAULT 'Ethics',
+    comment TEXT,
+     editable INT DEFAULT 1
+);
