@@ -9,7 +9,7 @@
 }
 #comment_approve_reject_contenair{
     transform: translate(-50%,-50%);
-    position: fixed;
+    position: absolute;
     right: -10%;
     bottom:  -10%;
     background-color: gainsboro;

@@ -69,7 +69,7 @@ if (isset($_GET['submission_id'])) {
 
     $stmt->close();
 } else {
-    echo "Submission ID not provided.";
+   $IdnotFound="submission id is not found";
 }
 
 // Close database connection
@@ -96,7 +96,7 @@ $conn->close();
 
     <div id="main_wrapper">
 
-<!-- 
+
         <div id="header_contenair">
             <div id="logo">
                 <img src="../image/ufulogoen4.png" alt="">
@@ -129,7 +129,7 @@ $conn->close();
                   </div>
 
 
-            </div> -->
+            </div> 
 
 
         </div> 
@@ -276,6 +276,8 @@ $conn->close();
                    
                 
                     <input type="hidden" name="submission_id" value="<?php echo  $submissionId; ?>">
+                    <input type="text" name="submission_id" value="<?php echo  $IdnotFound; ?>">
+                   
               
 
             </div>
@@ -312,6 +314,7 @@ $conn->close();
                     </div>
                   
     </div>
+    <input type="hidden" name="submissionId" value="<?php echo  $submissionId; ?>">
 
     <div id="save_contenair_button">
     <input type="submit" value="Save" class="submit_btn save_btn" >

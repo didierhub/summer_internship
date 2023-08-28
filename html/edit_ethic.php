@@ -293,7 +293,7 @@ $conn->close();
                     </div>
                    
                 
-                    <input type="hidden" name="submission_id" value="<?php echo  $submissionId; ?>">
+                    <input type="hidden" name="submissionId" value="<?php echo  $submissionId; ?>">
               
 
             </div>
