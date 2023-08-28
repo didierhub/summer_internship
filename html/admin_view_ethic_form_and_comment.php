@@ -10,68 +10,36 @@ $loggedInUserId = getLoggedInUserId();
 
 // Get the user's full name using the ID
 $userFullName = getUserFullName($loggedInUserId);
-
-
+if (isset($_POST['submit'])) {
+    $submissionId = $_POST['submissionId'];
+    $question1 = mysqli_real_escape_string($conn, $_POST['question1']);
+    $question2 = mysqli_real_escape_string($conn, $_POST['question2']);
+    $question3 = mysqli_real_escape_string($conn, $_POST['question3']);
+    $question4 = mysqli_real_escape_string($conn, $_POST['question4']);
+    $question5 = mysqli_real_escape_string($conn, $_POST['question5']);
+    $question6 = mysqli_real_escape_string($conn, $_POST['question6']);
+    $question7 = mysqli_real_escape_string($conn, $_POST['question7']);
+    $researcherName = mysqli_real_escape_string($conn, $_POST['researcherName']);
+    // Prepare and execute a secure update statement
+    $sql = "UPDATE form_ethic SET question1=?, question2=?, question3=? , question4=?, question5=?, question6=?, question7=?,researcherName=?, WHERE 
+     submission_id=?";
+    $stmt = mysqli_prepare($conn, $sql);
+    mysqli_stmt_bind_param($stmt, "sssssssss", $question1 $question2, $question3, $question4,$question5,$question6,$question7,$researcherName,$submissionId
+);
+    
+    if (mysqli_stmt_execute($stmt)) {
+        echo "Form updated successfully";
+    } else {
+        echo "Error updating form";
+    }
+    mysqli_stmt_close($stmt);
+}
 if (isset($_GET['submission_id'])) {
     $submissionId = $_GET['submission_id'];
-
-    // Fetch form details for the selected submission ID
-    $query = "SELECT * FROM ethic_form WHERE submission_id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $submissionId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result && $result->num_rows > 0)
-    {
-        $row = $result->fetch_assoc();
-        
-        // Handle form update if form is submitted
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $status = $_POST['form_status'];
-            $comment = $_POST['comment'];
-            
-            // Update status and comments in the database
-            $updateQuery = "UPDATE ethic_form SET form_status = ?, comment = ? WHERE submission_id = ?";
-            $updateStmt = $conn->prepare($updateQuery);
-            $updateStmt->bind_param("sss", $status, $comment, $submissionId);
-            
-            if ($updateStmt->execute()) {
-                if ($status === 'approve') {
-                    // Update the 'editable' column to 0 to disable further edits
-                    $updateEditableQuery = "UPDATE ethic_form SET editable = 0 WHERE submission_id = ?";
-                    $updateEditableStmt = $conn->prepare($updateEditableQuery);
-                    $updateEditableStmt->bind_param("s", $submissionId);
-                    $updateEditableStmt->execute();
-                    $updateEditableStmt->close();
-                }
-            
-                echo "Status and comments updated successfully!";
-            } 
-            else {
-                echo "Update failed: " . $updateStmt->error;
-            }
-            
-            $updateStmt->close();
-        }
-        $question1 = $row['question1'];
-        $question2 = $row['question2'];
-        $question3 = $row['question3'];
-        $question4 = $row['question4'];
-        $question5 = $row['question5'];
-        $question6 = $row['question6'];
-        $question7 = $row['question7'];
-        $researcherName = $row['researcher_name'];
-        
-    } else {
-        echo "Form not found.";
-    }
-
-    $stmt->close();
-} else {
-   $IdnotFound="submission id is not found";
+    $sql = "SELECT * FROM ethic_form WHERE submission_id=$submissionId";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
 }
-
 // Close database connection
 $conn->close();
 ?>
@@ -154,7 +122,7 @@ $conn->close();
                 <h3> 1. Briefly describe the study to be conducted, including the sub-research questions, and hypotheses if any</h3>
                 <div class="text_area_box">
                     <textarea name="question1" id="" cols="30" rows="10">
-                    <?php echo $question1;?>
+                    <?php echo $row['question1']; ?>
                     </textarea>
                 </div>
 
@@ -166,7 +134,7 @@ $conn->close();
                     with this document.)</h3>
                 <div class="text_area_box">
                     <textarea name="question2" id="" cols="30" rows="10">
-                    <?php echo $question2;?>
+                    <?php echo $row['question2']; ?>
                     </textarea>
                 </div>
 
@@ -176,7 +144,7 @@ $conn->close();
                 <h3> 3. Write down the expected results of your study.</h3>
                 <div class="text_area_box">
                     <textarea name="question3" id="" cols="30" rows="10">
-                    <?php echo $question3;?>
+                    <?php echo $row['question3']; ?>
                     </textarea>
                 </div>
 
@@ -199,7 +167,7 @@ $conn->close();
                     these items/procedures.</h3>
                 <div class="text_area_box">
                     <textarea name="question4" id="" cols="30" rows="10">
-                    <?php echo $question4;?>
+                    <?php echo $row['question4']; ?>
                     </textarea>
                 </div>
 
@@ -222,7 +190,7 @@ $conn->close();
                     </h3>
                 <div class="text_area_box">
                     <textarea name="question5" id="" cols="30" rows="10">
-                    <?php echo $question5;?>
+                    <?php echo $row['question5']; ?>
                     </textarea>
                 </div>
 
@@ -233,7 +201,7 @@ $conn->close();
                 </h3>
                 <div class="text_area_box">
                     <textarea name="question6" id="" cols="30" rows="10">
-                    <?php echo $question6;?>
+                    <?php echo $row['question6']; ?>
                     </textarea>
                 </div>
 
@@ -256,7 +224,7 @@ $conn->close();
                     </h3>
                 <div class="text_area_box">
                     <textarea name="question7" id="" cols="30" rows="10">
-                    <?php echo $question7;?>
+                    <?php echo $row['question7']; ?>
                     </textarea>
                 </div>
 
@@ -265,7 +233,7 @@ $conn->close();
                
                 <div class="signature">
                     <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
-                    <div class="signature_content"> <input type="text" name="researcher_name"  value="<?php echo $researcherName; ?>" ></div>
+                    <div class="signature_content"> <input type="text" name="researcher_name"   value="<?php echo $row['researcher_name']; ?>" ></div>
                     <div class="signature_content"><h4>signature:</h4>
                         <div class="signature-pad">
                             <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
