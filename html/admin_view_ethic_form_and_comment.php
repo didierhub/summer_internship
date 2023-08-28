@@ -275,8 +275,8 @@ $conn->close();
                     </div>
                    
                 
-                    <input type="hidden" name="submission_id" value="<?php echo  $submissionId; ?>">
-                    <input type="text" name="submission_id" value="<?php echo  $IdnotFound; ?>">
+                    <input type="hidden" name="submissionId" value="<?php echo  $submissionId; ?>">
+                    <input type="text" name="" value="<?php echo  $IdnotFound; ?>">
                    
               
 
@@ -292,7 +292,7 @@ $conn->close();
     <form  id="comment_approve_reject_contenair"  action="admin_view_ethic_form_and_comment.php" method="post" >
     <div  id="contenair_comment">
 
-        <label for="comments">Comments:</label>
+        <label for="comment">Comments:</label>
         <textarea name="comment" id="comments" rows="30"> </textarea>
     
         <br>
@@ -304,11 +304,11 @@ $conn->close();
                     <div id="status-buttons">
                         <label>
                             
-                            <input type="radio" name="status" value="approve">
+                            <input type="radio" name="form_status" value="approve">
                             <button type="button"  class="submit_btn">Approve</button>
                         </label>
                         <label>
-                            <input type="radio" name="status" value="reject"  >
+                            <input type="radio" name="form_status" value="reject"  >
                             <button type="button"  class="submit_btn" >Reject</button>
                         </label>
                     </div>
