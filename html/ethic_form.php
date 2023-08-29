@@ -67,7 +67,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
           
-            $successMessage = "Data inserted successfully!";
+            echo '
+    <link rel="stylesheet" type="text/css" href="../css/popup-style.css">
+    <div class="popup">
+        <span class="success-icon">&#10004;</span>
+        <span>submit successfull</span>
+        <div class="popup-buttons">
+            <button onclick="closePopupAndRedirect()">OK</button>
+        </div>
+    </div>
+    <script>
+        function closePopupAndRedirect() {
+            var popup = document.querySelector(".popup");
+            if (popup) {
+                popup.style.display = "none";
+                window.location.href = "user_dashboard.php"; // Redirect back to app_status.php
+            }
+        }
+    </script>';
             
         } else {
             echo "Error: " . $stmt->error;
@@ -292,11 +309,11 @@ $conn->close();
         </form>
 
     </div>
-    <script>
+    <!-- <script>
     <?php if (isset($successMessage))  ?>
         alert("<?php echo $successMessage; ?>");
        
-</script>
+</script> -->
 
      <Script src="../js/app.js">
 

@@ -351,6 +351,10 @@ border-right: 1px solid black;
   active, .accordion:hover {
 	background-color: #ccc;
   }
+  .form_count{
+	position: relative;
+	color: red;
+  }
 
 
 

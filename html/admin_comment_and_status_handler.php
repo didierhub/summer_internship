@@ -1,7 +1,7 @@
 <?php
 require_once 'db_connection.php'; // Include your database connection script
 require_once 'midleware.php';
-
+$loggedInUserId = getLoggedInUserId();
 // Include your authentication/middleware script
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,9 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               SET form_status = ?, comment = ?, editable = ? 
               WHERE submission_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssii", $formStatus, $adminComment, $editable, $submissionId);
+    $stmt->bind_param("ssis", $formStatus, $adminComment, $editable, $submissionId);
     $stmt->execute();
     $stmt->close();
+
+    // Update user form_count
+    if (!empty($adminComment) && (strcasecmp($formStatus, 'Approved') === 0 || strcasecmp($formStatus, 'Rejected') === 0)) {
+        // Update user form_count
+        $countUpdateQuery = "UPDATE users SET form_count = form_count + 1 WHERE user_id = ?";
+        $countUpdateStmt = $conn->prepare($countUpdateQuery);
+        $countUpdateStmt->bind_param("i", $loggedInUserId); // Use the appropriate user ID
+        $affectedRows = $countUpdateStmt->affected_rows;
+        $countUpdateStmt->execute();
+        $countUpdateStmt->close();
+        echo "Rows affected: $affectedRows"; 
+        echo "User ID: $loggedInUserId | Form Status: $formStatus | Admin Comment: $adminComment<br>";
+
+
+
+    }
+
+
 
     echo '
     <link rel="stylesheet" type="text/css" href="../css/popup-style.css">
@@ -41,5 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     echo "Invalid request.";
 }
+
+
 ?>
 

@@ -1,12 +1,12 @@
 <?php
- require_once 'midleware.php'; 
- include('db_connection.php');
+   include('notification_header_info.php'); // Include your database connection script
+ $counts = include 'counting_appove_reject_pending.php'; // Include the PHP scrip
 
- // Get the logged-in user's ID
- $loggedInUserId = getLoggedInUserId();
+//  // Get the logged-in user's ID
+//  $loggedInUserId = getLoggedInUserId();
  
- // Get the user's full name using the ID
- $userFullName = getUserFullName($loggedInUserId);
+//  // Get the user's full name using the ID
+//  $userFullName = getUserFullName($loggedInUserId);
  
 
  ?>
@@ -50,7 +50,7 @@
             </div>
             <div id="log_out_notification_contenair">
                <span id="message"> <ion-icon name="chatbox-ellipses-outline"></ion-icon>
-                <span id="notification"> <ion-icon name="notifications-outline"></ion-icon></span>
+                <span id="notification"> <span class="form_count"><?php echo $formCount ?></span> <ion-icon name="notifications-outline"></ion-icon></span>
                 
                 <span><?php echo $userFullName; ?></span>
                 <span id="profile"><img src="../image/profile.jpg" alt=""> </span>
@@ -89,11 +89,12 @@
 
 
             <div id="midle_section_contenair_box">
-                <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
-                        0</span></div>
-                        <div class="midle_section_box"> <span class="status_name"> Reject  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">
-                        0</span></div>
-                <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"> 0</span>
+                <div class="midle_section_box"> <span class="status_name"> new request  <ion-icon name="git-pull-request-outline"></ion-icon></span>
+                 <span class="count">
+                 <?php echo $counts['pending']; ?></span></div>
+                        <div class="midle_section_box"> <span class="status_name"> Reject  <ion-icon name="git-pull-request-outline"></ion-icon></span> <span class="count">  <?php echo $counts['rejected']; ?>
+                        </span></div>
+                <div class="midle_section_box"><span class="status_name"> approved <ion-icon name="checkmark-circle-outline"></ion-icon></span> <span class="count"><?php echo $counts['approved']; ?></span>
                 </div>
             </div>
 
