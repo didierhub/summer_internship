@@ -352,9 +352,13 @@ border-right: 1px solid black;
 	background-color: #ccc;
   }
   .form_count{
-	position: relative;
+	transform: translate(-50%,-50%);
+	position:relative;
 	color: red;
+	top: 20%;
+	right: -45%;
   }
+  
 
 
 

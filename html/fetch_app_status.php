@@ -22,6 +22,7 @@ if ($result) {
         echo "<div class='col'><span>" . $row['submission_date'] . "</span></div>";
         echo "<div class='col'><a href='edit_ethic.php?submission_id=" . $row['submission_id'] . "'>Edit</a></div>";
         echo '<div class="col"> <a href="delete_ethic.php?submission_id=' . $row['submission_id'] . '" onclick="return confirm(\'Are you sure you want to delete this submission?\')">Delete</a></div>';
+        echo "<div class='col'><a href='view_and_action_print.php?submission_id=" . $row['submission_id'] . "'>Print</a></div>";
         echo "</div>";
       
 

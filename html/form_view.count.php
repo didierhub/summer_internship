@@ -1,8 +1,7 @@
 
         <?php
-        require_once 'db_connection.php'; // Include your database connection script
-
-        $loggedInUserId = getLoggedInUserId(); // Implement a function to get the logged-in user's ID
+    
+        include('notification_header_info.php'); // Implement a function to get the logged-in user's ID
 
         // Retrieve and display form details
         $formDetailsQuery = "SELECT comment, form_status FROM ethic_form WHERE user_id = ?";
@@ -32,3 +31,13 @@
 
         
         ?>
+        <div class="comment_notification_contenair">
+
+     <textarea   cols="30" rows="10">
+        dear <?php  echo " $userFullName";?> , your application was 
+        <?php  echo " $formStatus<br>";?>
+        <?php  echo "$comment ";?>
+
+    </textarea>
+
+        </div>

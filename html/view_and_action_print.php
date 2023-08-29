@@ -48,14 +48,13 @@ if (isset($_GET['submission_id'])) {
 ?>
 
 
-
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/admin_view_css.css">
+    <link rel="stylesheet" href="../css/ethic.css">
    
 
     <title>Document</title>
@@ -101,12 +100,12 @@ if (isset($_GET['submission_id'])) {
                   </div>
 
 
-            </div> 
+            </div>
 
 
         </div> 
 
-<!-- 
+
         <div id="dash_board_menu">
 
             
@@ -115,17 +114,17 @@ if (isset($_GET['submission_id'])) {
             <div><a href="project_form.php"> <ion-icon name="receipt-outline"></ion-icon> <span>Ethics form
                     </span></a></div>
             <div><a href="appt_status.php"> <ion-icon name="analytics-outline"></ion-icon><span>App status </span></a></div>
-        </div> -->
+        </div>
 
         
-        <form  id="midle_section_contenair_user" action="ethic_update_handler.php" method="post">
+        <form  id="midle_section_contenair_user" >
 
 <h2> ETHICS COMMITTEE PROJECT INFORMATION FORM</h2>
 
 <div class="ethic_form_box">
     <h3> 1. Briefly describe the study to be conducted, including the sub-research questions, and hypotheses if any</h3>
     <div class="text_area_box">
-        <textarea name="question1" id="" cols="30" rows="10" readonly>
+        <textarea name="question1" id="" cols="30" rows="10" readonly >
         <?php echo $question1; ?>
         </textarea>
     </div>
@@ -137,7 +136,7 @@ if (isset($_GET['submission_id'])) {
         hand in a copy of all types of instruments such as scales and questionnaires to be used in the study along
         with this document.)</h3>
     <div class="text_area_box">
-        <textarea name="question2" id="" cols="30" rows="10" readonly>
+        <textarea name="question2" id="" cols="30" rows="10" readonly >
         <?php echo $question2; ?>
         </textarea>
     </div>
@@ -147,7 +146,7 @@ if (isset($_GET['submission_id'])) {
 <div class="ethic_form_box">
     <h3> 3. Write down the expected results of your study.</h3>
     <div class="text_area_box">
-        <textarea name="question3" id="" cols="30" rows="10" readonly>
+        <textarea name="question3" id="" cols="30" rows="10" readonly >
         <?php echo $question3; ?>
         </textarea>
     </div>
@@ -160,17 +159,17 @@ if (isset($_GET['submission_id'])) {
          <div class="yes_or_no_radio">
             <span>
             <label for="academic">yes</label><br>
-            <input type="radio" id="academic" name="fav_language" value="HTML">
+            <input type="radio" id="academic" name="fav_language" value="HTML" readonly >
            </span>
            <span>
             <label for="doctor">no</label><br>
-            <input type="radio" id="doctor" name="fav_language" value="CSS">
+            <input type="radio" id="doctor" name="fav_language" value="CSS" readonly >
            </span>
         </div>
         If yes, please explain. Specify the precautions that will be taken to eliminate or minimize the effects of
         these items/procedures.</h3>
     <div class="text_area_box">
-        <textarea name="question4" id="" cols="30" rows="10" readonly>
+        <textarea name="question4" id="" cols="30" rows="10" readonly >
         <?php echo $question4; ?>
         </textarea>
     </div>
@@ -182,18 +181,18 @@ if (isset($_GET['submission_id'])) {
          <div class="yes_or_no_radio">
         <span>
         <label for="academic">yes</label><br>
-        <input type="radio" id="academic" name="fav_language" value="HTML">
+        <input type="radio" id="academic" name="fav_language" value="HTML" readonly >
        </span>
        <span>
         <label for="doctor">no</label><br>
-        <input type="radio" id="doctor" name="fav_language" value="CSS">
+        <input type="radio" id="doctor" name="fav_language" value="CSS" readonly >
        </span>
     </div>
         If yes, explain why. Indicate how this will be explained to the participants at the end of the data
         collection in debriefing the participants.
         </h3>
     <div class="text_area_box">
-        <textarea name="question5" id="" cols="30" rows="10" readonly>
+        <textarea name="question5" id="" cols="30" rows="10" readonly >
         <?php echo $question5; ?>
         </textarea>
     </div>
@@ -204,7 +203,7 @@ if (isset($_GET['submission_id'])) {
     <h3> 6. Indicate the potential contributions of the study to your research area and/or the society.
     </h3>
     <div class="text_area_box">
-        <textarea name="question6" id="" cols="30" rows="10" readonly>
+        <textarea name="question6" id="" cols="30" rows="10" readonly >
         <?php echo $question6; ?>
         </textarea>
     </div>
@@ -216,18 +215,18 @@ if (isset($_GET['submission_id'])) {
          <div class="yes_or_no_radio">
         <span>
         <label for="academic">yes</label><br>
-        <input type="radio" id="academic" name="fav_language" value="HTML">
+        <input type="radio" id="academic" name="fav_language" value="HTML" readonly >
        </span>
        <span>
         <label for="doctor">no</label><br>
-        <input type="radio" id="doctor" name="fav_language" value="CSS">
+        <input type="radio" id="doctor" name="fav_language" value="CSS" readonly >
        </span>
     </div>
         If your answer is yes, write down the titles, and dates of previous research projects you have conducted or
         that you have taken part in and the names of funding institution(s) if any.
         </h3>
     <div class="text_area_box">
-        <textarea name="question7" id="" cols="30" rows="10" readonly>
+        <textarea name="question7" id="" cols="30" rows="10" readonly >
         <?php echo $question7; ?>
         </textarea>
     </div>
@@ -239,70 +238,52 @@ if (isset($_GET['submission_id'])) {
         <div class="signature_content"> <h4>Researcher’s name and surname:</h4></div>
         <div class="signature_content"> 
             
-                <input type="text" name="researcher_name"  id="researcher_name"  value="<?php echo $researcherName; ?>" readonly>
+                <input type="text" name="researcher_name"  id="researcher_name"  value="<?php echo $researcherName; ?>" readonly >
                                    
         </div>
         <div class="signature_content"><h4>signature:</h4>
             <div class="signature-pad">
-                <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;"></canvas>
-                <button class="clear-btn">Clear Signature</button>
-                <button class="save-btn">Save Signature</button> 
+                <canvas id="signatureCanvas1" class="signature-canvas" width="300" height="100" style="border: 1px solid #000;" readonly ></canvas>
+            
               </div>
         </div>
        
     
-        <input type="hidden" name="submission_id" value="<?php echo $submissionId; ?>" readonly>
+        <input type="hidden" name="submission_id" value="<?php echo $submissionId; ?>">
 
       
 </div>
 
   
 
+<button onclick="printForm()"  type="update"  class="submit_btn">Print</button>
   
 </form>
-        
 
-       
     </div>
-    <form  id="comment_approve_reject_contenair"  action="admin_comment_and_status_handler.php" method="post" >
-    <div  id="contenair_comment">
-    <input type="hidden" name="submission_id" value="<?php echo $submissionId; ?>">
+  
 
+     <Script src="../js/app.js"></Script>
+     <script>
+function printForm() {
+    // Get the form's HTML content
+    var formContent = document.getElementById("midle_section_contenair_user").outerHTML;
 
-        <label for="comment">Comments:</label>
-        <textarea name="comment" id="comments" rows="30"> </textarea>
-    
-        <br>
-    </div>
+    // Open a new window with the form's content
+    var printWindow = window.open("", "_blank");
+    printWindow.document.open();
+    printWindow.document.write('<html><head><title>Print Form</title></head><body>');
+    printWindow.document.write(formContent);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
 
-  <div id="status_contenair">
-        
-                    <label>Choose Status:</label>
-                    <div id="status-buttons">
-                        <label>
-                            
-                            <input type="radio" name="form_status" value="Approved">
-                            <button type="button"  class="submit_btn approved_btn ">Approve</button>
-                        </label>
-                        <label>
-                            <input type="radio" name="form_status" value="Rejected"  >
-                            <button type="button"  class="submit_btn  rejectd_btn" >Reject</button>
-                        </label>
-                    </div>
-                  
-    </div>
-   
-
-    <div id="save_contenair_button">
-    <input type="submit" value="Save" class="submit_btn save_btn" >
-    </div>
-   
-    </form>
-
-
-     <Script src="../js/app.js">
-
- </Script>
+    // Wait for content to load before printing
+    printWindow.onload = function() {
+        printWindow.print();
+    };
+}
+</script>
 </body>
 
 </html>
+
