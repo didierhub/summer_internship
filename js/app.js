@@ -1,15 +1,42 @@
 
  //FOR CORDIANT
+// var acc = document.getElementsByClassName("accordion");
+// var i;
+
+// for (i = 0; i < acc.length; i++) {
+//   acc[i].addEventListener("click", function() {
+//     /* Toggle between adding and removing the "active" class,
+//     to highlight the button that controls the panel */
+//     this.classList.toggle("active");
+
+//     /* Toggle between hiding and showing the active panel */
+//     var panel = this.nextElementSibling;
+//     if (panel.style.display === "block") {
+//       panel.style.display = "none";
+//     } else {
+//       panel.style.display = "block";
+//     }
+//   });
+// }
+
+
+
 var acc = document.getElementsByClassName("accordion");
+var panels = document.getElementsByClassName("panel"); // Assuming "panel" is the class name for the content panels.
 var i;
 
 for (i = 0; i < acc.length; i++) {
   acc[i].addEventListener("click", function() {
-    /* Toggle between adding and removing the "active" class,
-    to highlight the button that controls the panel */
-    this.classList.toggle("active");
+    // Close all panels and remove the "active" class from all accordion items
+    for (var j = 0; j < panels.length; j++) {
+      panels[j].style.display = "none";
+    }
+    for (var j = 0; j < acc.length; j++) {
+      acc[j].classList.remove("active");
+    }
 
-    /* Toggle between hiding and showing the active panel */
+    // Toggle the "active" class and show the corresponding panel
+    this.classList.toggle("active");
     var panel = this.nextElementSibling;
     if (panel.style.display === "block") {
       panel.style.display = "none";
@@ -18,6 +45,7 @@ for (i = 0; i < acc.length; i++) {
     }
   });
 }
+
 
 //FOR THE DROP DOWN UP ICTION
 

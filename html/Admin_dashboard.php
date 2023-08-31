@@ -81,6 +81,7 @@
             <div><a href="Admin_dashboard.php"><ion-icon name="home-outline"></ion-icon> <span>home</span></a></div>
             <div><a href="ethic_form.php"><ion-icon name="create-outline"></ion-icon> <span>Ethics form <span></span></a></div>
             <div><a href="project_form.php"> <ion-icon name="receipt-outline"></ion-icon> <span>Project form </span></a></div>
+            <div><a href="user_table.php"> <ion-icon name="receipt-outline"></ion-icon> <span>user table </span></a></div>
             
         </div>
 

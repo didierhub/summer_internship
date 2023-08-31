@@ -12,7 +12,9 @@
 // }
 
 // Include the database connection file
-require_once 'db_connection.php';
+require_once 'db_connection.php'; // Include your database connection script
+require_once 'midleware.php';
+
 
 
 // Query to fetch all user information

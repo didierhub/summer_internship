@@ -331,7 +331,19 @@ border-right: 1px solid black;
 	background:white;
 	 overflow: hidden;
 	 display: none;
+	 overflow-y: scroll;
 }
+.panel ::-webkit-scrollbar{
+	width: .3rem;
+	background-color: gainsboro;
+	border-radius: .2rem;
+}
+.panel ::-webkit-scrollbar-thumb{
+	
+	background-color: gainsboro;
+	border-radius: .2rem;
+}
+
 .panel p{
 	color:black;
 	font-size: 20px;
