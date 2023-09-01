@@ -12,6 +12,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     text-align: center;
+    
 }
 
 table, th, td {
@@ -27,6 +28,8 @@ th, td {
 th {
     background-color: #f2f2f2;
     font-weight: bold;
+    border-top: .4rem;
+    border-top: none;
 }
 
 #table span{

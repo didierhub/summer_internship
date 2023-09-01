@@ -88,39 +88,7 @@
 
 
             <div id="status_table">
-                <!-- <div id="status_table_hearder">
-                  
-                    <div class="table_col">
-                     
-                        <h3>App No</h3>
-
-                    </div>
-                    <div class="table_col">
-                      <h3>Application type</h3>
-                    
-                    </div>
-                    <div class="table_col">
-                     <h3>Status</h3>
-
-                    </div>
-                    <div class="table_col">
-                         <h3>Comment</h3> 
-                    </div>
-                    <div class="table_col">
-                        <button type="button">edit/delete</button>
-                        
-
-                    </div>
-                    
-
-
-                </div>
-             -->
-<!-- 
-                <div id="dynamic_row_contenmair">
-
-                </div> -->
-
+               
             </div>
 
 
