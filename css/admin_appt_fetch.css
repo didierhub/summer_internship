@@ -1,5 +1,5 @@
 @import "../css/main_dashboard.css";
-
+@import"../css/table_style.css";
 #forme_decription{
     width: 100%;
     display: flex;
@@ -39,10 +39,7 @@
    transform: scale(1.2) ; 
 
 }
-.col{
-    text-align: center;
-   
-}
+
 
 #submitted_form_row .col{
     border-radius: 3px;
@@ -54,5 +51,15 @@
     transform:translate(1.5px);
     box-shadow: 2px 1px 2px rgba(0, 0, 0,.5);
 }
+
+.table_dstyle{
+    text-align: center;
+    width: 100%;
+
+}
+
+
+
+
 
 

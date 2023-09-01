@@ -326,12 +326,13 @@ border-right: 1px solid black;
 	align-content: space-between;
 }
 .panel{
-	height: 30%;
+	height: 50%;
 	width: 100%;
 	background:white;
 	 overflow: hidden;
 	 display: none;
 	 overflow-y: scroll;
+	 text-align: center;
 }
 .panel ::-webkit-scrollbar{
 	width: .3rem;

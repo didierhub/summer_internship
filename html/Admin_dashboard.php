@@ -110,27 +110,19 @@
 
                 </div>
 
-                <div id="form_row">
-                    <div id="forme_decription">
-                        <div class="col"><span>Form Id</span></div>
-                        <div class="col"><span>Form Type</span></div>
-                        <div class="col"><span>Form Status</span></div>
-                        <div class="col"><span>submission Date</span></div>
-                    </div>
-                <div id="dynamic_row_contenmair">
+               <div id="form_row"  > 
 
-                </div>
-                   
+                    <!--   //table is here import with js query -->
+                  
+                  
+              </div>
 
-                    
-                </div>
-
-            </div>
+   
 
 
 
 
-        </div>
+        </div> 
 
     </div>
 
@@ -143,7 +135,7 @@
                 method: 'GET',
                 dataType: 'html',
                 success: function(data) {
-                    $("#dynamic_row_contenmair").html(data); // Replace the form list content
+                    $("#form_row").html(data); // Replace the form list content
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("AJAX Error:", errorThrown);

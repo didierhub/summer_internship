@@ -88,7 +88,7 @@
 
 
             <div id="status_table">
-                <div id="status_table_hearder">
+                <!-- <div id="status_table_hearder">
                   
                     <div class="table_col">
                      
@@ -115,11 +115,11 @@
 
 
                 </div>
-            
-
+             -->
+<!-- 
                 <div id="dynamic_row_contenmair">
 
-                </div>
+                </div> -->
 
             </div>
 
@@ -139,7 +139,7 @@
                 method: 'GET',
                 dataType: 'html',
                 success: function(data) {
-                    $("#dynamic_row_contenmair").html(data); // Replace the form list content
+                    $("#status_table").html(data); // Replace the form list content
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("AJAX Error:", errorThrown);

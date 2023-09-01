@@ -31,7 +31,7 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/user_table.css"> <!-- Replace with your CSS file path -->
+    <link rel="stylesheet" href="../css/table_style.css"> <!-- Replace with your CSS file path -->
     <title>User Information</title>
 </head>
 
@@ -46,14 +46,17 @@ $conn->close();
                 <th>First Name</th>
                 <th>Last Name</th>
                 <th>Email</th>
+                <th>user role</th>
             </tr>
 
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?php echo $row["id"]; ?></td>
+                <td><?php echo $row["user_id"]; ?></td>
                 <td><?php echo $row["first_name"]; ?></td>
                 <td><?php echo $row["last_name"]; ?></td>
                 <td><?php echo $row["email"]; ?></td>
+                <td><?php echo $row["user_role"]; ?></td>
+
             </tr>
             <?php endwhile; ?>
 

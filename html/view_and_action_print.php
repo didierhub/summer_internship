@@ -256,10 +256,10 @@ if (isset($_GET['submission_id'])) {
 
   
 
-<button onclick="printForm()"  type="update"  class="submit_btn">Print</button>
+
   
 </form>
-
+<button onclick="printForm()"  type="update"  class="submit_btn">Print</button>
     </div>
   
 
