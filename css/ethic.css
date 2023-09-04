@@ -27,8 +27,11 @@ body{
     min-height: 90vh;
     text-align: center;
     background-image: url("../image/login_backgroung.jpg");
-    background-color: whitesmoke;
+   
 }
+
+
+
 #midle_section_contenair_user h2{
     margin-top: 5%;
     padding-bottom: 5%;
@@ -116,3 +119,6 @@ body{
     font-size: 20px;
 }
 
+#TextArea_4,#TextArea_5,#TextArea_7{
+    display: none;
+}

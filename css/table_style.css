@@ -34,9 +34,10 @@ th {
 
 #table span{
     text-align: center;
-    padding: 3px 2px;
-    background-color:rgb(226, 219, 219);
+    padding: 4px 6px;
+    background-color:red;
     border-radius: 5px;
+   color: aliceblue;
 
 }
 #table span:hover{

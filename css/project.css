@@ -40,15 +40,21 @@ textarea {
 
 
 
-#main_contenair {
+#main_contenair{
 
     width: 80%;
     transform: translatex(-50%);
-   position: relative;
-   left: 40%;
-    background-image: url("..image/logobg.png");
-    background-repeat: repeat;
+    position: relative;
+    left: 40%;
+    background-image: url("../image/login_backgroung.jpg");
+    background-repeat:no-repeat;
+    min-height: 100%;
+    background-size: cover;
+   
+  
 }
+
+
 
 #derscription {
     width: 100%;
@@ -334,3 +340,109 @@ textarea {
     border: solid 2px red;
     background: transparent;
 }
+.row_block_9{
+    width: 90%;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    flex-wrap: wrap;
+}
+.row_block_9:first-of-type{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   flex-wrap: wrap;
+
+}
+
+
+
+#supported_or_not{
+    display: flex;
+   justify-content: space-around;
+   width:80%;
+   align-self: flex-end;
+
+}
+ input[type="radio"] {
+    margin-left: .5rem;
+    margin-right: .2rem;
+}
+#block_9{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+   
+}
+#NOt-suppoted,#suppoted{
+    display:flex;
+    align-items: center;
+   
+}
+.row_block_9{
+   display: flex;
+    justify-content: space-around;
+    list-style: none;
+    flex-wrap: wrap;
+    
+   
+}
+.row_block_9 li{
+    list-style: none;
+    display: block;
+    margin-bottom: 5px;
+  
+
+}
+#block_10{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.row_block_10{
+    width: 90%;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    flex-wrap: wrap;
+   
+    
+}
+.row_block_10_border{
+    border: solid black 1px;
+    
+}
+.row_block_10_border div{
+    margin-top: 2px;
+    margin-bottom: 10px;
+    text-align: start;
+}
+  p{
+    margin-bottom: 10px;
+    text-align: start;
+    width: 95%;
+}
+.row_block_10_border textarea{
+    margin-bottom: 10px;
+
+}
+#block_10,#block_11,#block_12,#block_13,#block_14{
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+
+}
+
+
+.row_block_11,.row_block_12,.row_block_13,.row_block_14{
+    width: 90%;
+
+}
+
+
+
+
+

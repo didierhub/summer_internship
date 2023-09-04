@@ -134,8 +134,33 @@ const signaturePads = document.querySelectorAll('.signature-pad');
 signaturePads.forEach((signaturePad, index) => new SignaturePad(signaturePad, index + 1));
 
 
+// TEXTARAREAS VISIBILITIES
+var form = document.querySelector("form");
 
-// SIgn up confirmation part
+// Add a change event listener to the form
+form.addEventListener("change", function (event) {
+    // Check if the changed element is a radio button with the name "fav_language"
+    if (event.target.type === "radio" && event.target.name === "fav_language") {
+        // Find the closest .ethic_form_box parent element
+        var ethicFormBox = event.target.closest(".ethic_form_box");
+        if (!ethicFormBox) {
+            return; // Exit if not found
+        }
 
-// app.js
+        // Find the associated text area within the .ethic_form_box
+        var textArea = ethicFormBox.querySelector("textarea");
 
+        // Toggle the visibility of the text area based on the selected radio button
+        if (event.target.value === "yes") {
+            textArea.style.display = "block";
+        } else {
+            textArea.style.display = "none";
+        }
+    }
+});
+
+// Hide all text areas initially
+var textAreas = document.querySelectorAll(".text_area_box textarea");
+textAreas.forEach(function (textarea) {
+  
+});
