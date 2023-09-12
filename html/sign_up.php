@@ -3,14 +3,12 @@
 
 // Handle form submission
 // If the form is submitted
-
-require_once ('midleware.php');
 include('db_connection.php');
 // Get the logged-in user's ID
-$loggedInUserId = getLoggedInUserId();
+// $loggedInUserId = getLoggedInUserId();
 
-// Get the user's full name using the ID
-$userFullName = getUserFullName($loggedInUserId);
+// // Get the user's full name using the ID
+// $userFullName = getUserFullName($loggedInUserId);
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

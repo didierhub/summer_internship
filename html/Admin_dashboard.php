@@ -1,14 +1,15 @@
 <?php
-   include('notification_header_info.php'); // Include your database connection script
- $counts = include 'counting_appove_reject_pending.php'; // Include the PHP scrip
+  
+   $counts = include 'counting_appove_reject_pending.php'; // Include the PHP scrip
+   require_once 'midleware.php'; 
+   include('db_connection.php');
 
-//  // Get the logged-in user's ID
-//  $loggedInUserId = getLoggedInUserId();
+ // Get the logged-in user's ID
+   $loggedInUserId = getLoggedInUserId();
  
-//  // Get the user's full name using the ID
-//  $userFullName = getUserFullName($loggedInUserId);
+ // Get the user's full name using the ID
+  $userFullName = getUserFullName($loggedInUserId);
  
-
  ?>
 
 <!DOCTYPE html>
