@@ -4,5 +4,5 @@ CREATE TABLE users (
     last_name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
     password VARCHAR(255) NOT NULL,
-    user_role ENUM('superadmin', 'manager', 'supervisor', 'user') NOT NULL
+    user_role ENUM('user','superadmin', 'manager', 'supervisor') NOT NULL
 );

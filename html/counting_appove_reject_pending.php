@@ -1,6 +1,6 @@
 <?php
 // Include your database connection script
-require_once 'midleware.php'; 
+ require_once 'midleware.php'; 
  include('db_connection.php');
 
 // Initialize the counts array

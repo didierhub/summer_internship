@@ -363,7 +363,6 @@ $conn->close();
             });
 
             // Initial state: Hide the text area
-            textArea.style.display = "none";
         });
 
 
